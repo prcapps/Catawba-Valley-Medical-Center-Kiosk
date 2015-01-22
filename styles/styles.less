@@ -48,18 +48,51 @@ table {
 }
 /*END RESET*/
 
+/*LAYOUT STYLES*/
+.wrapper{
+	margin:auto;
+	max-width: 1920px;
+	height: 1080px;
+	overflow:hidden;
+}
+
+.two-per-row > *{
+	width: 40%;
+	padding: 10px 10% 10px 0%;
+	float:left;
+	display:inline-block;
+}
 
 /*LANDING PAGES*/
+
+.page-left{
+
+	h2{
+		font-size: 5em;
+		line-height: 1em;
+		margin-bottom: .5em;
+	}
+	p{
+		font-size: 2em;
+		line-height: 1em;
+	}
+}
+
 .slider-level-1{
 	width: 100%;
 	>div{
 		width: 100%;
+		height: 1080px;
 	}
 }
 
 .page-wrapper{
+	background-image: url('../img/background.jpg');
 	width: 100%;
+	padding-top: 300px;
+	padding-bottom: 650px;
 	overflow: hidden;
+	height: 100%;
 	.page-left{
 		float:left;
 		width: 30%;
@@ -70,13 +103,17 @@ table {
 	}
 	.page-left, .page-right{
 		>div{
-			padding: 10px 10%;
+			padding: 10px 15%;
+			overflow:hidden;
 		}
 	}	
 }
 
 /*DONORS PAGE*/
 .keyboard-container{
+	position:absolute;
+	width: 100%;
+	bottom: 0px;
 	text-align: center;
 	clear: both;
 	padding: 20px 0px;
