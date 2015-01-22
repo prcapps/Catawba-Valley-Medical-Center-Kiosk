@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   // START MAIN SLIDER
-  slidr.create('slidr-level-1', {
+  slidr_level_1 = slidr.create('slidr-level-1', {
     after: function(e) { console.log('in: ' + e.in.slidr); },
     before: function(e) { console.log('out: ' + e.out.slidr); },
     breadcrumbs: false,
@@ -26,6 +26,12 @@ $(document).ready(function(){
      var $firstInput = $(':input').first().focus();
      jsKeyboard.currentElement = $firstInput;
      jsKeyboard.currentElementCursorPosition = 0;
-  });  
+  }); 
+
+  $('.landing-page-navigation a').on('click', function(){
+    var target_slide = $(this).attr("class");
+
+    slidr_level_1.slide(target_slide);
+  }); 
 
 });
