@@ -1,0 +1,12 @@
+{
+  "name": "catawba-kiosk",
+  "version": "0.0.1",
+  "description": "a kiosk",
+  "dependencies": {
+    "express": "^4.10.2"
+  },
+  "repository": {
+      "type": "git",
+      "url": "git@github.com:prcapps/Catawba-Valley-Medical-Center-Kiosk.git"
+    }
+}
