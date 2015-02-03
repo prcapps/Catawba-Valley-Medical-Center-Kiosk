@@ -18,6 +18,12 @@ donor_list =
   }
 
 
+  function handleMouseDown(event){
+    $(this).parent('li').addClass('nav-down');
+    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
+  }
+
+
 function performDonorSearch(value){
   if(! value){
       $('.donor-list li').fadeIn('fast');
@@ -98,10 +104,7 @@ $(document).ready(function(){
     $(this).parent('li').addClass('nav-up');
     $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-up'); 
   })
-  .mousedown(function() {
-    $(this).parent('li').addClass('nav-down');
-    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
-  }).click(function(){
+  .mousedown(handleMouseDown).click(function(){
     var target_slide = $(this).attr("slider-nav");
     slidr_level_1.slide(target_slide);
 
