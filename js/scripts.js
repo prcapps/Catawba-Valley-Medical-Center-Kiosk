@@ -28,6 +28,7 @@ $(document).ready(function(){
      jsKeyboard.currentElementCursorPosition = 0;
   }); 
 
+  // BOTTOM NAVIGATION
   $('.landing-page-navigation a').on('click', function(){
     var target_slide = $(this).attr("class");
 
