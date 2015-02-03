@@ -19,6 +19,7 @@ donor_list =
 
 
   function handleMouseDown(event){
+    console.log(event);
     $(this).parent('li').addClass('nav-down');
     $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
   }
@@ -104,7 +105,7 @@ $(document).ready(function(){
     $(this).parent('li').addClass('nav-up');
     $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-up'); 
   })
-  .mousedown(handleMouseDown).click(function(){
+  .mousedown(handleMouseDown).touchstart(handleMouseDown).click(function(){
     var target_slide = $(this).attr("slider-nav");
     slidr_level_1.slide(target_slide);
 
