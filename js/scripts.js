@@ -1,3 +1,4 @@
+// DONOR SEARCH FUNCTIONALITY
 donor_list = 
 
   [
@@ -41,22 +42,19 @@ function performDonorSearch(value){
     }); 
 }
 
+// READY PAGE
 $(document).ready(function(){
 
-
+  // 
   $(document).on('click', '.input', function(){
     value = $(this).val().toUpperCase();
     performDonorSearch(value);
-
-       
 
    });
 
   $(document).on('keyup', '.input', function(){
     value = $(this).val().toUpperCase();
     performDonorSearch(value);
-
-       
 
    });
 
@@ -91,9 +89,24 @@ $(document).ready(function(){
 
   // BOTTOM NAVIGATION
   $('.landing-page-navigation a').on('click', function(){
-    var target_slide = $(this).attr("class");
+     
 
+
+  });
+
+  $('.landing-page-navigation a').mouseup(function() {
+    $(this).parent('li').addClass('nav-up');
+    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-up'); 
+  })
+  .mousedown(function() {
+    $(this).parent('li').addClass('nav-down');
+    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
+  }).click(function(){
+    var target_slide = $(this).attr("slider-nav");
     slidr_level_1.slide(target_slide);
-  }); 
+
+    $(this).parent('li').addClass('nav-active');
+    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-active');
+  });
 
 });

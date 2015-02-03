@@ -2,6 +2,11 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@font-face {
+    font-family:"leawood-book-bt";
+    src: url("fonts/leawood-book-bt.ttf") /* TTF file for CSS3 browsers */
+}
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -30,6 +35,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font-family: "leawood-book-bt", Serif;
 }
 ol, ul {
 	list-style: none;
@@ -48,6 +54,9 @@ table {
 }
 /*END RESET*/
 
+/*VARIABLES*/
+@brown: #5c3b25;
+
 /*LAYOUT STYLES*/
 .wrapper{
 	margin:auto;
@@ -58,8 +67,8 @@ table {
 }
 
 .two-per-row > *{
-	width: 40%;
-	padding: 10px 10% 10px 0%;
+	width: 48%;
+	padding: 10px 2% 10px 0%;
 	float:left;
 	display:inline-block;
 }
@@ -88,25 +97,27 @@ table {
 }
 
 .page-wrapper{
-	background-image: url('../img/background.jpg');
-	width: 100%;
+	background-image: url('../img/page-background.png');
+	width: 1920px;
+	height: 1080px;	
 	overflow: hidden;
-	height: 100%;
 
-	padding-top: 300px;
+
+	padding-top: 60px;
 	padding-bottom: 650px;
 
 	.page-left{
 		float:left;
-		width: 30%;
+		width: 45%;
 	}
 	.page-right{
 		float:left;
-		width: 70%;
+		width: 55%;
+		padding-top: 350px;
 	}
 	.page-left, .page-right{
 		>div{
-			padding: 10px 15%;
+			padding: 0px 10%;
 			overflow:hidden;
 		}
 	}
@@ -119,7 +130,23 @@ table {
 }	
 
 .large-links{
-	font-size: 2em;
+	font-size: 3em;
+	a{
+		color: @brown;
+		cursor:pointer;
+		text-decoration: none !important;
+		img, span{
+			display:inline-block;
+			/*float:left;*/
+			vertical-align: middle;
+		}
+		img{
+			max-width: 150px;
+		}
+		span{
+
+		}
+	}
 }
 
 /*DONORS PAGE*/
@@ -149,17 +176,54 @@ table {
 	font-size: 1.5em;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+	
+	background-position: 250px 0px;	
+	ul{
+		overflow:hidden;
+	}
 	li{
 		display: inline-block;
-		width: 33.33%;
+		width: 29%;
 		float:left;
+		background-image: url('/img/brown-bar.jpg');
+		transition: .2s all;
+		&:first-child{
+			width: 13%;
+			a{
+				padding: 16px;
+				img{
+					max-width: 100px;
+				}				
+			}
+		}
+		&.nav-active{
+		    -webkit-transform: perspective(0px) rotateX(0deg) !important;
+  			-webkit-transform-style: preserve-3d;
+			background-image: url('/img/green-bar.jpg');
+		}	
+		&.nav-down{
+			
+		    -webkit-transform: perspective(300px) rotateX(5deg);
+  			-webkit-transform-style: preserve-3d;	
+		}
+		&.nav-up{
+
+		}	
 		a{
 			display:block;
 			padding: 40px 0px 40px 0px;
-			background: #eee;
+			/*background: #eee;*/
 			text-align: center;
-			border-right: 1px solid #ccc;
+			min-height: 80px;
+			background-image: url('/img/magic-dots.png');
+
+			img{
+				max-width: 250px;
+			}
 		}
+	}
+	.nav-active{
+
 	}
 }
 
