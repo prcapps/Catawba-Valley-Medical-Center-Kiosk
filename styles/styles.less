@@ -54,6 +54,7 @@ table {
 	max-width: 1920px;
 	height: 1080px;
 	overflow:hidden;
+	position:relative;
 }
 
 .two-per-row > *{
@@ -89,10 +90,12 @@ table {
 .page-wrapper{
 	background-image: url('../img/background.jpg');
 	width: 100%;
-	padding-top: 300px;
-	padding-bottom: 650px;
 	overflow: hidden;
 	height: 100%;
+
+	padding-top: 300px;
+	padding-bottom: 650px;
+
 	.page-left{
 		float:left;
 		width: 30%;
@@ -106,14 +109,24 @@ table {
 			padding: 10px 15%;
 			overflow:hidden;
 		}
+	}
+}
+
+.slide-two{
+	.page-wrapper{
+		padding-top: 150px;
 	}	
+}	
+
+.large-links{
+	font-size: 2em;
 }
 
 /*DONORS PAGE*/
 .keyboard-container{
 	position:absolute;
 	width: 100%;
-	bottom: 0px;
+	bottom: 100px;
 	text-align: center;
 	clear: both;
 	padding: 20px 0px;
@@ -124,6 +137,29 @@ table {
 		min-height: 50px;
 		font-size: 2em;
 		line-height: 2em;		
+	}
+}
+
+/*NAVIGATION*/
+.landing-page-navigation{
+	z-index: 100;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	li{
+		display: inline-block;
+		width: 33.33%;
+		float:left;
+		a{
+			display:block;
+			padding: 40px 0px 40px 0px;
+			background: #eee;
+			text-align: center;
+			border-right: 1px solid #ccc;
+		}
 	}
 }
 
