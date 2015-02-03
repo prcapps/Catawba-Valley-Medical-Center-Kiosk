@@ -17,23 +17,20 @@ donor_list =
   }
 
 
-$(document).ready(function(){
-
-  $(document).on('click', '.input', function(){
-    value = $(this).val();
-
-    if(! value){
+function performDonorSearch(value){
+  if(! value){
       $('.donor-list li').fadeIn('fast');
       return;
     }
 
-    console.log(value);
+    // console.log(value);
     $('.donor-list li').each(function(){
       test_val = $(this).html();
-      last_name = test_val.split(' ')[1];
-      console.log(last_name);
 
-      console.log(test_val);
+      last_name = test_val.split(' ')[1].toUpperCase();
+      // console.log(last_name);
+
+      // console.log(test_val);
       if(last_name.indexOf(value) == -1){
         $(this).fadeOut('fast');
       }
@@ -41,7 +38,25 @@ $(document).ready(function(){
         $(this).fadeIn('fast');
       }
 
-    });    
+    }); 
+}
+
+$(document).ready(function(){
+
+
+  $(document).on('click', '.input', function(){
+    value = $(this).val().toUpperCase();
+    performDonorSearch(value);
+
+       
+
+   });
+
+  $(document).on('keyup', '.input', function(){
+    value = $(this).val().toUpperCase();
+    performDonorSearch(value);
+
+       
 
    });
 
