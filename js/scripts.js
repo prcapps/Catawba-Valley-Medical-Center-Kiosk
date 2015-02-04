@@ -1,3 +1,9 @@
+//-------------------------------------------------------------------------------------------
+
+// DONOR SEARCH
+
+//-------------------------------------------------------------------------------------------
+
 // DONOR SEARCH FUNCTIONALITY
 donor_list = 
 
@@ -7,22 +13,20 @@ donor_list =
   'Lisa Michelson'              
   ];
 
- // START VIRTUAL KEYBOARD
-  $(function () {
-     jsKeyboard.init("virtualKeyboard");
+// START VIRTUAL KEYBOARD
+$(function () {
+   jsKeyboard.init("virtualKeyboard");
 
-     //first input focus
-     var $firstInput = $('#donor-search-input').focus();
-     jsKeyboard.currentElement = $firstInput;
-     jsKeyboard.currentElementCursorPosition = 0;
+   //first input focus
+   var $firstInput = $('#donor-search-input').focus();
+   jsKeyboard.currentElement = $firstInput;
+   jsKeyboard.currentElementCursorPosition = 0;
 
 
-  });   
+});   
 
-function keyboardKeyUp(){
 
-}
-
+// SETUP DONOR LIST AT THE BEGINNING
 function populateDonorList(){
   for(index in donor_list){
     donor = donor_list[index];
@@ -36,13 +40,8 @@ function populateDonorList(){
 
 populateDonorList();
 
-  function handleMouseDown(event){
-    console.log(event);
-    $(this).parent('li').addClass('nav-down');
-    $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
-  }
 
-
+// FIRE WHEN TYPING
 function performDonorSearch(){
   if(! value){
       // $('.donor-list li').fadeIn('fast');
@@ -50,24 +49,26 @@ function performDonorSearch(){
     }
     var values_found = 0;
     // console.log(value);
+
     $('.donor-list li').each(function(){
       test_val = $(this).html();
 
       last_name = test_val.split(' ')[1].toUpperCase();
-      // console.log(last_name);
 
-      
-      // console.log(test_val);
       if(last_name.indexOf(value) == -1){
-        $(this).fadeOut('fast');
+        $(this).addClass('donor-found');
         
       }
       else{
-        $(this).fadeIn('fast');
+        $(this).removeClass('donor-found');
         values_found = values_found + 1;
       }
+      // console.log(last_name);
+      // console.log(test_val);      
     });
 
+
+    // NO RESULTS TRIGGER
     if(values_found <= 0){
       placeholder = $('#donor-search-input').val();
       $('.donor-list').slideUp(function(){
@@ -84,36 +85,37 @@ function performDonorSearch(){
     }      
 }
 
+// FIRE WHEN KEYBOARD KEY GOES UP
 mouseUpEvent = function(){};
 
 
+// FIRE WHEN KEYBOARD WRITES
 writeEvent = function(){
   $('h3.no-results span').html($('input').val());  
- // PRC Testing
-    $('#donor-search-input').focus(); 
+  
+  // PRC Testing
+  $('#donor-search-input').focus(); 
 
-    value = $('input').val().toUpperCase();
+  value = $('input').val().toUpperCase();
 
-    performDonorSearch(value);
+  performDonorSearch(value);
 
-    console.log(jsKeyboard.currentElementCursorPosition);
-    console.log($('input').val());
+  if(jsKeyboard.currentElementCursorPosition > 0){
+      $('h3.prompt-text').fadeOut();                 
+  }
+  // console.log(jsKeyboard.currentElementCursorPosition);
+  // console.log($('input').val());    
+};
 
-    if(jsKeyboard.currentElementCursorPosition > 0){
-        $('h3.prompt-text').fadeOut();                 
-    }
-  };
 
+// FIRE WHEN DELETE BUTTON IS PRESSED
 deleteEvent = function(){
   $('h3.no-results span').html($('input').val());  
- // PRC Testing
-    $('#donor-search-input').focus(); 
+    // $('#donor-search-input').focus(); 
 
     value = $('input').val().toUpperCase();
 
     performDonorSearch(value);
-
-    console.log("cursor position: " + jsKeyboard.currentElementCursorPosition);
 
     if(jsKeyboard.currentElementCursorPosition < 1){
         console.log("catch");
@@ -124,41 +126,42 @@ deleteEvent = function(){
         $('.donor-list').slideUp();
         $('h3.prompt-text').fadeIn();                 
     }
-    console.log('delete');     
+    // console.log("cursor position: " + jsKeyboard.currentElementCursorPosition);
+    // console.log('delete');     
 }; 
 
+
+// NO RESTULTS FUNCTIONALITY
 $('.no-results a, .no-results-keyboard a').on('click', function(e){
+  
+  jsKeyboard.currentElementCursorPosition = 0;
+  
   $('.donor-list li').fadeIn('fast');
   $('#donor-search-input').val('');
-  jsKeyboard.currentElementCursorPosition = 0;
+  
   $('.donor-list').slideDown(function(){
     $('h3.no-results').fadeOut(); 
     $('h3.no-results-keyboard').slideUp();      
   });
+  
   $('#donor-search-input').focus(); 
   e.preventDefault();    
 });
 
+//-------------------------------------------------------------------------------------------
+
+// END DONOR SEARCH FUNCTIONALITY
+
+//-------------------------------------------------------------------------------------------
+
 
 // READY PAGE
 $(document).ready(function(){
-  
-  // $(document).on('click', '.input', function(){
-  //   value = $(this).val().toUpperCase();
-  //   performDonorSearch(value);
-  //  });
+//-------------------------------------------------------------------------------------------
 
-  // $(document).on('keyup', '.input', function(){
-  //   value = $(this).val().toUpperCase();
-  //   performDonorSearch(value);
-  //  });
+// SLIDER
 
-  // $('#donor-search-input').change(function(){
-  //   console.log('keyed1');
-  // });
-
-
-
+//-------------------------------------------------------------------------------------------
 
   // START MAIN SLIDER
   slidr_level_1 = slidr.create('slidr-level-1', {
@@ -178,6 +181,17 @@ $(document).ready(function(){
   }).start();
 
 
+//-------------------------------------------------------------------------------------------
+
+// BOTTOM NAV/3D BUTTONS
+
+//-------------------------------------------------------------------------------------------
+
+  // function handleMouseDown(event){
+  //   console.log(event);
+  //   $(this).parent('li').addClass('nav-down');
+  //   $('.landing-page-navigation li').not($(this).parent('li')).removeClass('nav-down');
+  // }
 
   // BOTTOM NAVIGATION
   $('.landing-page-navigation a').mouseup(function() {
@@ -207,6 +221,22 @@ $(document).ready(function(){
     }else{
 
     }
-  });  
+  });
+
+  
+  // $(document).on('click', '.input', function(){
+  //   value = $(this).val().toUpperCase();
+  //   performDonorSearch(value);
+  //  });
+
+  // $(document).on('keyup', '.input', function(){
+  //   value = $(this).val().toUpperCase();
+  //   performDonorSearch(value);
+  //  });
+
+  // $('#donor-search-input').change(function(){
+  //   console.log('keyed1');
+  // });
+
 
 });
