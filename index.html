@@ -16,15 +16,17 @@
 
     <script>less = { env: 'development'};</script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.2.0/less.min.js"></script>
-    <script>less.watch();</script>    
+    <script>
+        less.watch();
+    </script>    
     <!-- END LESS LIVE WATCH -->
 
 </head>
 <body>
 <div class="wrapper">
-    <!-- 3 MAIN SECTIONS -->
+    <!-- MAIN SECTIONS -->
     <div id="slidr-level-1" class="slider-level-1">
-        <!-- SECTION 1 -->
+        <!-- SECTION 1 TRADITION INDEX-->
         <div data-slidr="one" class="slide-one">
             <div class="page-wrapper">
                 <div class="page-left">
@@ -48,7 +50,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/pink-leaf.png" alt="green leaf"/>
+                                    <img src="img/pink-leaf.png" alt="pink leaf"/>
                                     <span>Leadership</span>
                                 </a>
                             </li>                       
@@ -57,53 +59,66 @@
                 </div>                
             </div>
         </div>
-        <!-- END SECTION 1 -->
+        <!-- END SECTION 1 TRADITION INDEX-->
 
-        <!-- SECTION 2 -->
+        <!-- SECTION 2 DONOR INDEX-->
         <div data-slidr="two" class="slide-two">
             <div class="page-wrapper">
                 <div class="page-left">
                     <div>
                         <h2>
-                            Donors
+                            <img src="img/donors-header.png" alt="green leaf"/>
                         </h2>
                         <p>
                             eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur
                         </p>
+                        <a href="#" class="donor-search-button" slider-nav="four">
+                            <img src="img/mag-glass.png" alt="magnifying class"/>
+                            <span>Search for Donor<br>by Last Name</span>
+                        </a>                  
                     </div>
                 </div>
                 <div class="page-right">
                     <div>
-                        <ul class="donor-list two-per-row large-links">
+                        <ul class="two-per-row large-links">
                             <li>
-                                <a href="#">Link</a>
+                                <a href="#">
+                                    <img src="img/red-leaf.png" alt="green leaf"/>
+                                    <span>Cumulative</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">Link</a>
+                                <a href="#">
+                                    <img src="img/green-leaf.png" alt="green leaf"/>
+                                    <span>Planned</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">Link</a>
+                                <a href="#">
+                                    <img src="img/orange-leaf.png" alt="green leaf"/>
+                                    <span>Annual</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">Link</a>
+                                <a href="#">
+                                    <img src="img/pink-leaf.png" alt="green leaf"/>
+                                    <span>Employee</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">Link</a>
-                            </li>                         
+                                <a href="#">
+                                    <img src="img/green-poplar-leaf.png" alt="green leaf"/>
+                                    <span>Corporate</span>
+                                </a>
+                            </li>                                                                                                                                      
                         </ul>
                     </div>
-                </div>
-                <!-- KEYBOARD -->
-                <div class="keyboard-container">
-                    <input id='donor-search-input' class="input" name="username" type="text" placeholder="Username...">
-                    <div id="virtualKeyboard"></div>
-                </div>
-                <!-- END KEYBOARD -->                                
+                </div>                              
             </div>
         </div>
-        <!-- END SECTION 2 -->
+        <!-- END SECTION 2 DONOR INDEX-->
 
-        <!-- SECTION 3 -->
+        <!-- SECTION 3 FUTURE INDEX-->
         <div data-slidr="three" class="slide-three">
             <div class="page-wrapper">
                 <div class="page-left">
@@ -139,9 +154,56 @@
                 </div>                
             </div>
         </div> 
-        <!-- END SECTION 2 -->               
+        <!-- END SECTION 3 FUTURE INDEX--> 
+
+
+        <!-- SECTION 4 DONOR LIST-->
+        <div data-slidr="four" class="slide-four donors-index">
+            <div class="page-wrapper">
+                <div class="page-left">
+                    <div>
+                        <h2>
+                            Donor List
+                        </h2>
+                        <p>
+                            eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur
+                        </p>                  
+                    </div>
+                </div>
+                <div class="page-right">
+                    <div>
+                        <ul class="donor-list two-per-row large-links">
+                                                                                                                                   
+                        </ul>
+                        <h3 class='no-results'>
+                            No Results for "<span></span>"
+                            <a href="#">
+                            </a>
+                        </h3>                        
+                    </div>
+                </div>
+                <!-- KEYBOARD -->
+                <div class="keyboard-container">
+                    <input id='donor-search-input' class="input" name="username" type="text" placeholder="Search for a Donor by Last Name..."> 
+                    <h3 class="no-results">
+                        <h3 class='no-results-keyboard'>
+                            We're sorry, your search yielded no results. 
+                            <a href="#">
+                                Please Reset.
+                            </a>
+                        </h3>
+                    </h3>
+                    <div id="virtualKeyboard"></div>
+                </div>
+                <!-- END KEYBOARD -->                                
+            </div>
+        </div> 
+        <!-- END SECTION 4 -->                                    
     </div>
     <!-- END MAIN SLIDER -->
+
+
+
     <div class="landing-page-navigation">
         <ul>
             <li>
@@ -178,6 +240,16 @@
 
 <!-- KEYBOARD DEPENDENCIES JS -->
 <script type="text/javascript" src="lib/keyboard/js/vendor/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    // PRC APPS
+    // mouseUpEvent = function(){};
+    // mouseDownEvent = function(){};
+    // writeEvent = function(){};
+    // deleteEvent = function(){};
+    // END PRC APPS
+</script>
+
 <script type="text/javascript" src="lib/keyboard/js/jsKeyboard.js" ></script>
 <!-- END KEYBOARD DEPENDENCIES JS-->
 
