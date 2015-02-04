@@ -4,23 +4,7 @@ donor_list =
   [
   'Chad Jones',
   'Joe Smith',
-  'Lisa Michelson',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith',  'Chad Jones',
-  'Joe Smith'               
+  'Lisa Michelson'              
   ];
 
  // START VIRTUAL KEYBOARD
@@ -61,7 +45,7 @@ populateDonorList();
 
 function performDonorSearch(){
   if(! value){
-      $('.donor-list li').fadeIn('fast');
+      // $('.donor-list li').fadeIn('fast');
       return;
     }
     var values_found = 0;
@@ -92,6 +76,7 @@ function performDonorSearch(){
         $('h3.no-results span').html(placeholder);
       });
     }else{
+      $('.donor-list').slideDown();
       $('.donor-list').slideDown(function(){
         $('h3.no-results').fadeOut(); 
         $('h3.no-results-keyboard').slideUp();     
@@ -114,7 +99,9 @@ writeEvent = function(){
     console.log(jsKeyboard.currentElementCursorPosition);
     console.log($('input').val());
 
-
+    if(jsKeyboard.currentElementCursorPosition > 0){
+        $('h3.prompt-text').fadeOut();                 
+    }
   };
 
 deleteEvent = function(){
@@ -130,17 +117,27 @@ deleteEvent = function(){
 
     if(jsKeyboard.currentElementCursorPosition < 1){
         console.log("catch");
-        $('.donor-list').slideDown(function(){
-          $('.donor-list li').fadeIn('fast');    
-        }, function(){
-          jsKeyboard.currentElementCursorPosition = 0;
-        });
+        jsKeyboard.currentElementCursorPosition = 0;
+
         $('h3.no-results').fadeOut(); 
-        $('h3.no-results-keyboard').slideUp();         
+        $('h3.no-results-keyboard').slideUp();
+        $('.donor-list').slideUp();
+        $('h3.prompt-text').fadeIn();                 
     }
     console.log('delete');     
 }; 
 
+$('.no-results a, .no-results-keyboard a').on('click', function(e){
+  $('.donor-list li').fadeIn('fast');
+  $('#donor-search-input').val('');
+  jsKeyboard.currentElementCursorPosition = 0;
+  $('.donor-list').slideDown(function(){
+    $('h3.no-results').fadeOut(); 
+    $('h3.no-results-keyboard').slideUp();      
+  });
+  $('#donor-search-input').focus(); 
+  e.preventDefault();    
+});
 
 
 // READY PAGE
@@ -160,16 +157,6 @@ $(document).ready(function(){
   //   console.log('keyed1');
   // });
 
-  $('.no-results a, .no-results-keyboard a').on('click', function(e){
-    $('.donor-list li').fadeIn('fast');
-    $('#donor-search-input').val('');
-    $('.donor-list').slideDown(function(){
-      $('h3.no-results').fadeOut(); 
-      $('h3.no-results-keyboard').slideUp();      
-    });
-    $('#donor-search-input').focus(); 
-    e.preventDefault();    
-  });
 
 
 
