@@ -1,57 +1,194 @@
-// sample data
+var donor_list;
+var donor_categories = {};
+
+var donor_category_images = {};
+
+donor_category_images[1144] = 'img/red-leaf.png';
+donor_category_images[1145] = 'img/green-leaf.png';
 
 var index_pages = [];
 
-index_page = {};
+function prc_kiosk_process_donors(response){
 
-index_page.id = 1;
-index_page.title = "Building on Tradition";
-index_page.header_image = 'img/tradition-header.png';
+  donor_list = [];
 
-index_page.body = "eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur";
+  console.log(response);
 
-index_page.sub_pages = [];
+  donors_raw = response.items;
 
-sub_page_one = {};
-sub_page_one.title = "Timeline";
-sub_page_one.list_image = "img/green-leaf.png";
-sub_page_one.detail_type = "html";
-sub_page_one.body = "<h1>Test Detail Content</h1>";
-sub_page_one.slide_nav = 'five';
+  for(index in donors_raw){
+    donor_raw = donors_raw[index];
+
+    donor_list.push(donor_raw);
+
+    for(cat_index in donor_raw.categories){
+      cat = donor_raw.categories[cat_index];
+
+      if(typeof donor_categories[cat.id] == 'undefined'){
+        cat.donors = [];
+        donor_categories[cat.id] = cat;
+      }
+      donor_categories[cat.id].donors.push(donor_raw);
+    }
+
+  }
+  populateDonorList();
+  populateDonorCategories();
+  createDetailPages();
 
 
+  $('a').on('click', function(e){
+    console.log('click');
+    if($(this).attr('slider-nav')){
+       target_slide = $(this).attr("slider-nav");
+      console.log(target_slide);
+      slidr_level_1.slide(target_slide);
+      e.preventDefault();
+    }else{
 
-index_page.sub_pages.push(sub_page_one);
+    }
+  });
 
+}
 
+function prc_kiosk_process_pages(response){
+  index_pages = {};
 
+  console.log(response);
 
-index_pages.push(index_page);
+  pages_raw = response.items;
 
-for(index_page_index in index_pages){
-  active_index_page = index_pages[index_page_index];
+  for(index in pages_raw){
+    page_raw = pages_raw[index];
 
-  for(sub_index in active_index_page.sub_pages){
-    active_sub_page = active_index_page.sub_pages[sub_index];
-    $("#tradition-sub-pages").append(
-          "<li>" +
-            "<a href='#' slider-nav='" + active_sub_page.slide_nav +"'>" +
-              "<img src='" + active_sub_page.list_image +"' />" + 
-                "<span>" + 
-                 active_sub_page.title + 
-                "</span></a></li>"
-                );
+    for(cat_index in page_raw.categories){
+      cat = page_raw.categories[cat_index];
+
+      if(typeof donor_categories[cat.id] == 'undefined'){
+        cat.sub_pages = [];
+        index_pages[cat.id] = cat;
+      }
+      index_pages[cat.id].sub_pages.push(page_raw);
+    }
+
+  }
+  createIndexPages();
+}
+
+// SETUP DONOR LIST AT THE BEGINNING
+function populateDonorList(){
+  for(index in donor_list){
+    donor = donor_list[index];
+
+    $(".donor-list").append(
+                       "<li class='donor'>" +
+                        "<a href='#' slider-nav='" + donor.id +"'>" +
+                            "<span>" + 
+                               donor.title + 
+                            "</span></a></li>"
+                  );
   }
 }
 
-// DONOR SEARCH FUNCTIONALITY
-donor_list = 
+function populateDonorCategories(){
+  for(cat_index in donor_categories){
+    cat = donor_categories[cat_index];
 
-  [
-  'Chad Jones',
-  'Joe Smith',
-  'Lisa Michelson'              
-  ];
+    $("#donor-categories").append(
+        "<li>" +
+          "<a href='#' slider-nav='" + cat.id +"'>" +
+              "<img src='" + donor_category_images[cat.id] +"' />" + 
+              "<span>" + 
+               cat.title + 
+              "</span></a></li>"
+      );
+  }
+}
+
+function createDetailPages(){
+  for(index in donor_list){
+    donor = donor_list[index];
+
+    $("#slidr-level-1").append(
+        "<div data-slidr='"+donor.id+"' class='slide-"+donor.id+"'>" + 
+          donor.title + 
+        "</div>"
+      );
+  }
+
+  for(cat_index in donor_categories){
+    cat = donor_categories[cat_index];
+
+    cat_html =  "<div data-slidr='"+cat.id+"' class='slide-"+cat.id+"'>" + 
+                  "<div class=\"page-wrapper\">" +
+                    "<div class=\"page-left\">" + 
+                    "<img src='" + donor_category_images[cat.id] +"' />" + 
+
+                      "<h1>" + cat.title + "</h1>" + 
+                      "</div><div class='page-right'>" +
+                      "<ul class='two-per-row large-links'>";
+
+    for(donor_index in cat.donors){
+      donor = cat.donors[donor_index];
+      cat_html += "<li>"+donor.title+"</li>";
+    }
+
+    cat_html += "</ul></div></div></div>";
+
+    $("#slidr-level-1").append(cat_html);
+  }
+
+
+  for(index_page_index in index_pages){
+      active_index_page = index_pages[index_page_index];
+
+      for(sub_index in active_index_page.sub_pages){
+        active_sub_page = active_index_page.sub_pages[sub_index];
+        console.log(active_sub_page);
+        
+         cat_html =  "<div data-slidr='"+active_sub_page.id+"' class='slide-"+active_sub_page.id+"'>" + 
+                  "<div class=\"page-wrapper\">" +
+                    "<div class=\"page-left\">" + 
+
+                    "<img src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
+
+                      "<h1>" + active_sub_page.title + "</h1>" + 
+                      "</div><div class='page-right'>" +
+                      active_sub_page.postbody;
+
+          cat_html += "</div></div></div>";
+
+          $("#slidr-level-1").append(cat_html);
+      }
+    }
+}
+
+// sample data
+
+
+
+function createIndexPages(){
+    for(index_page_index in index_pages){
+      active_index_page = index_pages[index_page_index];
+
+      for(sub_index in active_index_page.sub_pages){
+        active_sub_page = active_index_page.sub_pages[sub_index];
+        console.log(active_sub_page);
+        $("#tradition-sub-pages").append(
+              "<li>" +
+                "<a href='#' slider-nav='" + active_sub_page.id +"'>" +
+                  "<img src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
+                    "<span>" + 
+                     active_sub_page.title + 
+                    "</span></a></li>"
+                    );
+      }
+    }
+
+}
+
+
+
 // START VIRTUAL KEYBOARD
 
 $(function () {
@@ -66,19 +203,7 @@ $(function () {
 });   
 
 
-// SETUP DONOR LIST AT THE BEGINNING
-function populateDonorList(){
-  for(index in donor_list){
-    donor = donor_list[index];
-    donor_key = donor.replace(/\s+/g, '');
 
-    $(".donor-list").append(
-      "<li class='donor-"+donor_key+"'>"+donor+"</li>"
-      );
-  }
-}
-
-populateDonorList();
 
 
 // FIRE WHEN TYPING
@@ -90,7 +215,7 @@ function performDonorSearch(){
     var values_found = 0;
     // console.log(value);
 
-    $('.donor-list li').each(function(){
+    $('.donor-list li a span').each(function(){
       test_val = $(this).html();
 
       last_name = test_val.split(' ')[1].toUpperCase();
