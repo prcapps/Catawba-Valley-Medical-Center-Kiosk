@@ -125,6 +125,9 @@ function createDetailPages(){
                     "<img src='" + donor_category_images[cat.id] +"' />" + 
 
                       "<h1>" + cat.title + "</h1>" + 
+                      "<p>" + 
+                        cat.description +
+                      "</p>" + 
                       "</div><div class='page-right'>" +
                       "<ul class='two-per-row large-links'>";
 
@@ -148,15 +151,17 @@ function createDetailPages(){
         
          cat_html =  "<div data-slidr='"+active_sub_page.id+"' class='slide-"+active_sub_page.id+"'>" + 
                   "<div class=\"page-wrapper\">" +
-                    "<div class=\"page-left\">" + 
+                    // "<div class=\"page-left\">" + 
 
-                    "<img src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
+                    "<img style='width: 100%; margin-top: -300px;' src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
 
-                      "<h1>" + active_sub_page.title + "</h1>" + 
-                      "</div><div class='page-right'>" +
-                      active_sub_page.postbody;
+                      // "<h1>" + active_sub_page.title + "</h1>" + 
+                      // "</div><div class='page-right'>" +
+                      // active_sub_page.postbody;
+                      "";
 
-          cat_html += "</div></div></div>";
+          // cat_html += "</div></div></div>";
+          cat_html += "</div></div>";
 
           $("#slidr-level-1").append(cat_html);
       }
