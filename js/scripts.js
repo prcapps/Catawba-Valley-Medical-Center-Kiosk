@@ -1,3 +1,39 @@
+// sample data
+
+var index_pages = [];
+
+index_page = {};
+
+index_page.id = 1;
+index_page.title = "Building on Tradition";
+index_page.header_image = 'img/tradition-header.png';
+
+index_page.body = "eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur";
+
+index_page.sub_pages = [];
+
+sub_page_one = {};
+sub_page_one.title = "Timeline";
+sub_page_one.list_image = "img/green-leaf.png";
+sub_page_one.detail_type = "html";
+sub_page_one.body = "<h1>Test Detail Content</h1>";
+
+index_page.sub_pages.push(sub_page_one);
+
+
+
+
+index_pages.push(index_page);
+
+for(index_page_index in index_pages){
+  active_index_page = index_pages[index_page_index];
+
+  for(sub_index in active_index_page.sub_pages){
+    active_sub_page = active_index_page[sub_index];
+    $("#tradition-sub-pages").append("<li><a slider-nav='four'>"+active_sub_page.title+"</a></li>");
+  }
+}
+
 // DONOR SEARCH FUNCTIONALITY
 donor_list = 
 
