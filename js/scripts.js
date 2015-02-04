@@ -17,6 +17,9 @@ sub_page_one.title = "Timeline";
 sub_page_one.list_image = "img/green-leaf.png";
 sub_page_one.detail_type = "html";
 sub_page_one.body = "<h1>Test Detail Content</h1>";
+sub_page_one.slide_nav = 'five';
+
+
 
 index_page.sub_pages.push(sub_page_one);
 
@@ -29,8 +32,15 @@ for(index_page_index in index_pages){
   active_index_page = index_pages[index_page_index];
 
   for(sub_index in active_index_page.sub_pages){
-    active_sub_page = active_index_page[sub_index];
-    $("#tradition-sub-pages").append("<li><a slider-nav='four'>"+active_sub_page.title+"</a></li>");
+    active_sub_page = active_index_page.sub_pages[sub_index];
+    $("#tradition-sub-pages").append(
+          "<li>" +
+            "<a slider-nav='" + active_sub_page.slide_nav +"'>" +
+              "<img src='" + active_sub_page.list_image +"' />" + 
+                "<span>" + 
+                 active_sub_page.title + 
+                "</span></a></li>"
+                );
   }
 }
 
