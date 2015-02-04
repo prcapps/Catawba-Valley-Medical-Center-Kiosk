@@ -76,7 +76,8 @@ table {
 /*LANDING PAGES*/
 
 .page-left{
-
+	position:relative;
+	z-index: 0;
 	h2{
 		font-size: 5em;
 		line-height: 1em;
@@ -108,12 +109,12 @@ table {
 
 	.page-left{
 		float:left;
-		width: 45%;
+		width: 35%;
 	}
 	.page-right{
 		float:left;
-		width: 55%;
-		padding-top: 350px;
+		width: 65%;
+		/*padding-top: 350px;*/
 	}
 	.page-left, .page-right{
 		>div{
@@ -153,7 +154,7 @@ table {
 .keyboard-container{
 	position:absolute;
 	width: 100%;
-	bottom: 100px;
+	bottom: 160px;
 	text-align: center;
 	clear: both;
 	padding: 20px 0px;
@@ -165,6 +166,47 @@ table {
 		font-size: 2em;
 		line-height: 2em;		
 	}
+}
+
+.donor-search-button{
+	background-image: url('/img/brown-bar.jpg');
+	color: white !important;
+	min-width: 300px;
+	min-height: 40px;
+	margin-top: 40px;
+	display:block;
+	padding:30px;
+	transition: .2s all;
+	position:relative;
+	z-index: 10;
+	span{
+		font-size: 2.5em;
+		line-height: 1.em;
+		margin-left:50px;
+		display:inline-block;
+	}
+	img{
+		max-height: 70px;
+		float:left;
+	}
+	&.nav-down{
+		
+	    -webkit-transform: perspective(300px) rotateX(5deg);
+		-webkit-transform-style: preserve-3d;
+		background-image: url('/img/green-bar.jpg');	
+	}
+	&.nav-up{
+	    -webkit-transform: perspective(0px) rotateX(0deg) !important;
+		-webkit-transform-style: preserve-3d;
+	}	
+
+}
+
+h3.no-results, h3.no-results-keyboard{
+	display:block;	
+	display:none;
+	clear:both;
+	color: @brown;
 }
 
 /*NAVIGATION*/
