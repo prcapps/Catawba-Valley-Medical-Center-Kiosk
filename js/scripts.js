@@ -35,7 +35,7 @@ for(index_page_index in index_pages){
     active_sub_page = active_index_page.sub_pages[sub_index];
     $("#tradition-sub-pages").append(
           "<li>" +
-            "<a slider-nav='" + active_sub_page.slide_nav +"'>" +
+            "<a href='#' slider-nav='" + active_sub_page.slide_nav +"'>" +
               "<img src='" + active_sub_page.list_image +"' />" + 
                 "<span>" + 
                  active_sub_page.title + 

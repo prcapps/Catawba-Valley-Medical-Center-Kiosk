@@ -10,6 +10,7 @@ var http = require('http').Server(app);
 app.use('/',express.static(path.join(__dirname, '')));
 app.use('/img',express.static(path.join(__dirname, 'img')));
 app.use('/styles',express.static(path.join(__dirname, 'styles')));
+app.use('/lib',express.static(path.join(__dirname, 'lib')));
 
 
 http.listen( (process.env.PORT || 3000), function(){
