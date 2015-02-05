@@ -262,13 +262,13 @@ function performDonorSearch(){
       last_name = test_val.split(' ')[1].toUpperCase();
 
       if(last_name.indexOf(value) == -1){
-        $(this).addClass('donor-found'); 
+        $(this).parents('li').addClass('donor-not-found'); 
       }
       else{
-        $(this).removeClass('donor-found');
+        $(this).parents('li').removeClass('donor-not-found');
         values_found = values_found + 1;
       }
-      // console.log(last_name);
+      console.log(last_name);
       // console.log(test_val);      
     });
 
@@ -306,7 +306,8 @@ writeEvent = function(){
   performDonorSearch(value);
 
   if(jsKeyboard.currentElementCursorPosition > 0){
-      $('h3.prompt-text').fadeOut();                 
+      $('h3.prompt-text').fadeOut(); 
+      $('h3.clear-search').slideDown();                
   }
   // console.log(jsKeyboard.currentElementCursorPosition);
   // console.log($('input').val());    
@@ -326,6 +327,7 @@ deleteEvent = function(){
         console.log("catch");
         jsKeyboard.currentElementCursorPosition = 0;
 
+        $('h3.clear-search').slideUp();
         $('h3.no-results').fadeOut(); 
         $('h3.no-results-keyboard').slideUp();
         $('.donor-list').slideUp();
@@ -344,13 +346,21 @@ $('.no-results a, .no-results-keyboard a').on('click', function(e){
   $('.donor-list li').fadeIn('fast');
   $('#donor-search-input').val('');
   
-  $('.donor-list').slideDown(function(){
-    $('h3.no-results').fadeOut(); 
-    $('h3.no-results-keyboard').slideUp();      
-  });
+  $('h3.no-results').fadeOut(); 
+  $('h3.no-results-keyboard').slideUp();   
+  $('h3.clear-search').slideUp();   
   
   $('#donor-search-input').focus(); 
   e.preventDefault();    
+});
+
+// CLEAR SEARCH
+$('h3.clear-search').on('click', function(){
+  jsKeyboard.currentElementCursorPosition = 0;
+  $('#donor-search-input').val('');
+  $(this).slideUp();
+  $('ul.donor-list').slideUp();
+  $('h3.prompt-text').slideDown();
 });
 
 //-------------------------------------------------------------------------------------------

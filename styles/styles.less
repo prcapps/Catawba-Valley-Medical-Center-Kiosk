@@ -98,7 +98,7 @@ table {
 }
 
 .page-wrapper{
-	background-image: url('../img/page-background.png');
+	background-image: url('../img/page-background.jpg');
 	width: 100%;
 	height: 1080px;	
 	overflow: hidden;
@@ -206,6 +206,24 @@ table {
 }
 
 .donor-list{
+	display:none;
+}
+
+.donor-list li{
+	transition: .2s all;
+	overflow:hidden;
+
+	a{
+		min-width: 300px;
+	}
+
+	&.donor-not-found{
+		width: 0px;
+		opacity: 0;
+	}
+}
+
+h3.clear-search{
 	display:none;
 }
 
