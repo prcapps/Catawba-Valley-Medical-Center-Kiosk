@@ -8,11 +8,22 @@ donor_category_images[1145] = 'img/green-leaf.png';
 
 var index_pages = [];
 
+
+function prc_kiosk_process_donor_categories(response){
+  for(index in response.items){
+    item = response.items[index];
+    item.donors = [];
+
+    donor_categories[item.id] = item;
+  }
+}
+
+
 function prc_kiosk_process_donors(response){
 
   donor_list = [];
 
-  console.log(response);
+  // console.log(response);
 
   donors_raw = response.items;
 
@@ -21,15 +32,19 @@ function prc_kiosk_process_donors(response){
 
     donor_list.push(donor_raw);
 
-    for(cat_index in donor_raw.categories){
-      cat = donor_raw.categories[cat_index];
+    // Possible translate category attribute to donor_cat Osmek ID
 
-      if(typeof donor_categories[cat.id] == 'undefined'){
-        cat.donors = [];
-        donor_categories[cat.id] = cat;
-      }
-      donor_categories[cat.id].donors.push(donor_raw);
-    }
+    donor_categories[donor_raw.donor_category].donors.push(donor_raw);
+
+    // for(cat_index in donor_raw.categories){
+    //   cat = donor_raw.categories[cat_index];
+
+    //   if(typeof donor_categories[cat.id] == 'undefined'){
+    //     cat.donors = [];
+    //     donor_categories[cat.id] = cat;
+    //   }
+    //   donor_categories[cat.id].donors.push(donor_raw);
+    // }
 
   }
   populateDonorList();
@@ -38,7 +53,7 @@ function prc_kiosk_process_donors(response){
 
 
   $('a').on('click', function(e){
-    console.log('click');
+    // console.log('click');
     if($(this).attr('slider-nav')){
        target_slide = $(this).attr("slider-nav");
       console.log(target_slide);
@@ -51,28 +66,36 @@ function prc_kiosk_process_donors(response){
 
 }
 
-function prc_kiosk_process_pages(response){
+function prc_kiosk_process_index_pages(response){
   index_pages = {};
 
-  console.log(response);
+  // console.log("Index Page Response");
+  // console.log(response);
 
   pages_raw = response.items;
 
   for(index in pages_raw){
     page_raw = pages_raw[index];
 
-    for(cat_index in page_raw.categories){
-      cat = page_raw.categories[cat_index];
+    page_raw.sub_pages = [];
 
-      if(typeof donor_categories[cat.id] == 'undefined'){
-        cat.sub_pages = [];
-        index_pages[cat.id] = cat;
-      }
-      index_pages[cat.id].sub_pages.push(page_raw);
-    }
-
+    index_pages[page_raw.id] = page_raw;
   }
+
   createIndexPages();
+}
+
+function prc_kiosk_process_pages(response){
+  // console.log(response);
+
+  pages_raw = response.items;
+
+  for(index in pages_raw){
+    page_raw = pages_raw[index];
+    
+    index_pages[page_raw.index_pages].sub_pages.push(page_raw);
+  }
+  createSubPagesPages();
 }
 
 // SETUP DONOR LIST AT THE BEGINNING
@@ -97,7 +120,7 @@ function populateDonorCategories(){
     $("#donor-categories").append(
         "<li>" +
           "<a href='#' slider-nav='" + cat.id +"'>" +
-              "<img src='" + donor_category_images[cat.id] +"' />" + 
+              "<img src='http://photos.osmek.com/" + cat.photo +".png' />" + 
               "<span>" + 
                cat.title + 
               "</span></a></li>"
@@ -122,12 +145,9 @@ function createDetailPages(){
     cat_html =  "<div data-slidr='"+cat.id+"' class='slide-"+cat.id+"'>" + 
                   "<div class=\"page-wrapper\">" +
                     "<div class=\"page-left\">" + 
-                    "<img src='" + donor_category_images[cat.id] +"' />" + 
-
+                      "<img src='http://photos.osmek.com/" + cat.photo +".png' />" + 
                       "<h1>" + cat.title + "</h1>" + 
-                      "<p>" + 
-                        cat.description +
-                      "</p>" + 
+                        cat.postbody +
                       "</div><div class='page-right'>" +
                       "<ul class='two-per-row large-links'>";
 
@@ -141,55 +161,71 @@ function createDetailPages(){
     $("#slidr-level-1").append(cat_html);
   }
 
-
   for(index_page_index in index_pages){
       active_index_page = index_pages[index_page_index];
 
       for(sub_index in active_index_page.sub_pages){
         active_sub_page = active_index_page.sub_pages[sub_index];
-        console.log(active_sub_page);
         
          cat_html =  "<div data-slidr='"+active_sub_page.id+"' class='slide-"+active_sub_page.id+"'>" + 
-                  "<div class=\"page-wrapper\">" +
-                    // "<div class=\"page-left\">" + 
-
-                    "<img style='width: 100%; margin-top: -300px;' src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
-
-                      // "<h1>" + active_sub_page.title + "</h1>" + 
-                      // "</div><div class='page-right'>" +
-                      // active_sub_page.postbody;
-                      "";
-
-          // cat_html += "</div></div></div>";
-          cat_html += "</div></div>";
+                        "<div class=\"page-wrapper\">" +
+                          "<img style='width: 100%; margin-top: -300px;' src='http://photos.osmek.com/" + active_sub_page.photo +".l.png' />" + 
+                        "</div>" + 
+                      "</div>";
 
           $("#slidr-level-1").append(cat_html);
       }
     }
 }
 
-// sample data
-
-
 
 function createIndexPages(){
     for(index_page_index in index_pages){
       active_index_page = index_pages[index_page_index];
+      // console.log(active_index_page);
+
+      // Update the Nav Image
+      $('#cms-bottom-nav').append(
+                                  "<li>" +
+                                    "<a slider-nav='" + active_index_page.id + "'>" +
+                                      "<img src='http://photos.osmek.com/" + active_index_page.bottom_nav_image +".png' />" + 
+                                    "</a>" +
+                                  "</li>"
+                                  );
+
+        // Get the Active Slide (in HTML)
+       active_slide = $('div[data-slidr="' + index_page_index + '"]');
+
+       // Populate Index Page Image and Description
+       active_slide.find('.header-image').attr('src', "http://photos.osmek.com/" + active_index_page.photo + ".png");
+       active_slide.find('p').replaceWith(active_index_page.postbody);
+    }
+}
+
+
+function createSubPagesPages(){
+    $(".cms-subpage-list").each(function(){
+      list = $(this);
+
+      active_id = list.attr('data-index-page-id');
+      active_index_page = index_pages[active_id];
 
       for(sub_index in active_index_page.sub_pages){
-        active_sub_page = active_index_page.sub_pages[sub_index];
-        console.log(active_sub_page);
-        $("#tradition-sub-pages").append(
-              "<li>" +
-                "<a href='#' slider-nav='" + active_sub_page.id +"'>" +
-                  "<img src='http://photos.osmek.com/" + active_sub_page.photo +".l.jpg' />" + 
-                    "<span>" + 
-                     active_sub_page.title + 
-                    "</span></a></li>"
-                    );
-      }
-    }
+          active_sub_page = active_index_page.sub_pages[sub_index];
+          // console.log(active_sub_page);
 
+          $(list).append(
+                          "<li>" +
+                            "<a href='#' slider-nav='" + active_sub_page.id +"'>" +
+                              "<img src='http://photos.osmek.com/" + active_sub_page.photo +".l.png' />" + 
+                                "<span>" + 
+                                 active_sub_page.title + 
+                                "</span>" +
+                            "</a>" +
+                          "</li>"
+                        );
+      }
+    });
 }
 
 
@@ -208,26 +244,25 @@ $(function () {
 });   
 
 
-
-
-
 // FIRE WHEN TYPING
 function performDonorSearch(){
   if(! value){
-      // $('.donor-list li').fadeIn('fast');
-      return;
-    }
-    var values_found = 0;
+    // $('.donor-list li').fadeIn('fast');
+    return;
+  }
+
+  value = value.toUpperCase();
+    
+    values_found = 0;
     // console.log(value);
 
     $('.donor-list li a span').each(function(){
       test_val = $(this).html();
-
+      console.log(test_val);
       last_name = test_val.split(' ')[1].toUpperCase();
 
       if(last_name.indexOf(value) == -1){
-        $(this).addClass('donor-found');
-        
+        $(this).addClass('donor-found'); 
       }
       else{
         $(this).removeClass('donor-found');
