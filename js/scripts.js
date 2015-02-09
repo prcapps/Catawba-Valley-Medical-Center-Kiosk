@@ -548,7 +548,6 @@ function timeout_trigger(){
 
 function short_timeout_trigger(){
 
-
   $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
     $(this).addClass('prc-invisible');
     $('.landing-page-navigation').fadeOut();
@@ -559,7 +558,7 @@ function short_timeout_trigger(){
   $('.timeout-notification').fadeOut();
 
   home_page = true;
-   
+
   restartTimer();
   
   $(document).unbind("click keydown keyup mousemove", restartTimer); 
@@ -573,14 +572,14 @@ restartTimer = function(){
   $('.timeout-notification').fadeOut();
 
   if(home_page == false){
-    timeout = setTimeout('timeout_trigger()', 5000);
+    timeout = setTimeout('timeout_trigger()', 60000);
   }
   
 }
 
 $('#slidr-carousel a').on('click', function(){
   $(document).bind("click keydown keyup mousemove", restartTimer);
-  timeout = setTimeout('timeout_trigger()', 5000); 
+  timeout = setTimeout('timeout_trigger()', 60000); 
   console.log(timeout);
 
   home_page = false;
