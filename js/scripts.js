@@ -52,17 +52,17 @@ function prc_kiosk_process_donors(response){
   createDetailPages();
 
 
-  $('a').on('click', function(e){
-    // console.log('click');
-    if($(this).attr('slider-nav')){
-       target_slide = $(this).attr("slider-nav");
-      console.log(target_slide);
-      slidr_level_1.slide(target_slide);
-      e.preventDefault();
-    }else{
+  // $('a').on('click', function(e){
+  //   // console.log('click');
+  //   if($(this).attr('slider-nav')){
+  //      target_slide = $(this).attr("slider-nav");
+  //     console.log(target_slide);
+  //     slidr_level_1.slide(target_slide);
+  //     e.preventDefault();
+  //   }else{
 
-    }
-  });
+  //   }
+  // });
 
 }
 
@@ -363,6 +363,15 @@ $('h3.clear-search').on('click', function(){
   $('h3.prompt-text').slideDown();
 });
 
+for(var i = 1; i < 5; i++){
+  $('#slidr-carousel').append(
+        "<div data-slidr='" + i + "' class='carousel-slide-" + i + "'>" + 
+          "<a href='#'><img src='/img/carousel-slides/slide-" + i  + ".jpg' /></a>" +  
+        "</div>"
+  );
+
+}
+
 //-------------------------------------------------------------------------------------------
 
 // END DONOR SEARCH FUNCTIONALITY
@@ -394,6 +403,25 @@ $(document).ready(function(){
     touch: true,
     transition: 'linear'
   }).start();
+
+  // START HOME CAROUSEL SLIDER
+   slidr_carousel = slidr.create('slidr-carousel', {
+      after: function(e) { console.log('in: ' + e.in.slidr); },
+      before: function(e) { console.log('out: ' + e.out.slidr); },
+      breadcrumbs: false,
+      controls: 'none',
+      direction: 'horizontal',
+      fade: false,
+      keyboard: true,
+      overflow: true,
+      pause: false,
+      theme: '#222',
+      timing: { 'cube': '0.5s ease-in' },
+      touch: true,
+      transition: 'linear',
+    }).start(); 
+
+  slidr_carousel.auto(10000); 
 //-------------------------------------------------------------------------------------------
 
 
@@ -432,26 +460,130 @@ $(document).ready(function(){
     if($(this).attr('slider-nav')){
       var target_slide = $(this).attr("slider-nav");
       slidr_level_1.slide(target_slide);
+      // console.log('target slide: '+ target_slide);
+      var active_nav = $(".landing-page-navigation a[slider-nav = '" + target_slide + "']");
       e.preventDefault();
+      active_nav.parent('li').addClass('nav-active').siblings().removeClass('nav-active');
+
     }else{
 
     }
   });
 
-  
-  // $(document).on('click', '.input', function(){
-  //   value = $(this).val().toUpperCase();
-  //   performDonorSearch(value);
-  //  });
+  // PARALLAX
 
-  // $(document).on('keyup', '.input', function(){
-  //   value = $(this).val().toUpperCase();
-  //   performDonorSearch(value);
-  //  });
+  $('.parallax a').on('click', function(e){
+    $('.parallax').fadeOut(function(){
+      $('.slider-nav-wrapper').removeClass('prc-invisible').animate({ opacity: 1 }, function(){
+        $('.landing-page-navigation').fadeIn();
+      });
+    });
+    e.preventDefault();
+  });
 
-  // $('#donor-search-input').change(function(){
-  //   console.log('keyed1');
+  $('.parallax-button').on('click', function(e){
+    $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
+      $(this).addClass('prc-invisible');
+      $('.landing-page-navigation').fadeOut();
+    });
+    $('.parallax').fadeIn();
+    e.preventDefault();
+  });
+
+  $('#slidr-carousel a').click(function(){
+    $('#slidr-carousel').fadeOut(function(){
+      $('.parallax').fadeIn();
+      slidr_carousel.stop();      
+    });
+
+  });
+
+ 
+  // $('.parallax a').on('click', function(e){
+  //   $('.parallax').fadeOut(function(){
+  //     $('.slider-level-1, .landing-page-navigation').animate({ opacity: 1 }, function(){
+
+  //     });
+      
+  //   });
+  //   e.preventDefault();
   // });
+
+  // $('.parallax-button').on('click', function(e){
+  //   $('.slider-level-1, .landing-page-navigation').animate({
+  //     opacity: 0
+  //   });
+  //   $('.parallax').fadeIn();
+  //   e.preventDefault();
+  // });
+  
+  $(document).on('click', '.input', function(){
+    value = $(this).val().toUpperCase();
+    performDonorSearch(value);
+   });
+
+  $(document).on('keyup', '.input', function(){
+    value = $(this).val().toUpperCase();
+    performDonorSearch(value);
+   });
+
+  $('#donor-search-input').change(function(){
+    console.log('keyed1');
+  });
 
 
 });
+
+
+var timeout;
+var short_timeout;
+var restartTimer;
+var home_page = false;
+
+function timeout_trigger(){
+  $('.timeout-notification').fadeIn(); 
+  clearTimeout(timeout);
+  short_timeout = setTimeout('short_timeout_trigger()', 5000);
+}
+
+function short_timeout_trigger(){
+
+
+  $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
+    $(this).addClass('prc-invisible');
+    $('.landing-page-navigation').fadeOut();
+  });  
+  $('.parallax').fadeOut();
+  $('#slidr-carousel').fadeIn();
+  slidr_carousel.auto(10000);  
+  $('.timeout-notification').fadeOut();
+
+  home_page = true;
+   
+  restartTimer();
+  
+  $(document).unbind("click keydown keyup mousemove", restartTimer); 
+
+  
+}
+
+restartTimer = function(){
+  clearTimeout(timeout);
+  clearTimeout(short_timeout);
+  $('.timeout-notification').fadeOut();
+
+  if(home_page == false){
+    timeout = setTimeout('timeout_trigger()', 5000);
+  }
+  
+}
+
+$('#slidr-carousel a').on('click', function(){
+  $(document).bind("click keydown keyup mousemove", restartTimer);
+  timeout = setTimeout('timeout_trigger()', 5000); 
+  console.log(timeout);
+
+  home_page = false;
+});
+
+

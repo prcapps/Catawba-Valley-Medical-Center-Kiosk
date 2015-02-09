@@ -62,7 +62,7 @@ table {
 	margin:auto;
 	max-width: 100%;
 	height: 1080px;
-	overflow:hidden;
+	overflow:scroll;
 	position:relative;
 }
 
@@ -73,7 +73,22 @@ table {
 	display:inline-block;
 }
 
+.prc-invisible{
+	opacity: 0 !important;
+	height: 0px !important;
+	overflow:hidden !important;
+}
+
+/*LANDING PAGE CAROUSEL*/
+#slidr-carousel{
+	width: 100%;
+	min-height: 1080px;
+}
+
 /*LANDING PAGES*/
+.slider-nav-wrapper{
+	/*visibility: hidden;*/
+}
 
 .page-left{
 	position:relative;
@@ -90,17 +105,29 @@ table {
 }
 
 .slider-level-1{
+	visibility: visible;
+	/*display:none;*/
 	width: 100%;
 	>div{
 		width: 100%;
 		height: 1080px;
+		overflow:hidden;
 	}
+	&.invisible{
+		/*visibility: hidden !important;*/
+	}
+}
+
+#slidr-level-1{
+	/*display:none;*/
+	display:block;
+	/*opacity: 0;*/
 }
 
 .page-wrapper{
 	background-image: url('../img/page-background.jpg');
 	width: 100%;
-	height: 1080px;	
+	/*height: 1080px;	*/
 	overflow: hidden;
 
 
@@ -274,7 +301,8 @@ h3.no-results, h3.no-results-keyboard{
   			-webkit-transform-style: preserve-3d;	
 		}
 		&.nav-up{
-
+		    -webkit-transform: perspective(0px) rotateX(0deg);
+  			-webkit-transform-style: preserve-3d;
 		}	
 		a{
 			display:block;
@@ -292,6 +320,164 @@ h3.no-results, h3.no-results-keyboard{
 	.nav-active{
 
 	}
+}
+
+/*---------------------------------------------------------------------------------
+/*---------------------------------------------------------------------------------
+PARALLAX SLIDER 
+/*---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------*/
+
+/*PARALLAX*/
+.parallax{
+	background-image: url(/img/parallax/whole-bg.jpg);
+	display:none;
+	a{
+		position:absolute;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+body{
+margin: 0;
+padding: 0;
+
+
+}
+/*<!--eliminated 5px border and holds bg image-->*/
+
+.parallax_container {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.parallax_future_container {
+	max-width: 1920px;
+	margin: 0 auto;
+	z-index: 10;
+}
+/*TESTING - trying to define container to drop design elements on different layeres
+/* ============================================================
+  SECTIONS
+============================================================ */
+section.module:last-child {
+  margin-bottom: 0;
+}
+/*COULD LIKELY REMOVE WHOLE SECTION -- The :last-child selector allows you to target the last element directly inside its containing element. It seems like this just makes sure the last element is flush bottom*/
+
+section.module h2 {
+  /*REMOVE PADDING margin-bottom: 40px;*/
+  font-family: "Roboto Slab", serif;
+  font-size: 30px;
+}
+/*COULD LIKELY REMOVE WHOLE SECTION*/
+
+section.module p {
+  /*REMOVE PADDING margin-bottom: 40px;*/
+  font-size: 16px;
+  font-weight: 300;
+}
+/*COULD LIKELY REMOVE WHOLE SECTION*/
+
+section.module p:last-child {
+  margin-bottom: 0;
+}
+/*COULD LIKELY REMOVE WHOLE SECTION*/
+
+section.module.content {
+  padding: 0px 0; 
+ 
+  /*changed padding from padding: 40px 0;*/
+}
+/*IMPORTANT: includes styles for all simple content containing sections*/
+
+section.module.parallax {
+	position: relative;
+  height: 1080px;
+  /*EDIT was originally 600px; 
+  TESTING this should make the parallax content sections the height of the monitor. */
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  /*in the advance tutorial, this section looks like this: section.module.parallax {
+  padding: 240px 0;
+  background-position: 0 0;
+}*/
+
+}
+/*IMPORTANT: Section that creates the parallax effect*/
+
+section.module.parallax h1 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 48px;
+  line-height: 600px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/*COULD LIKELY REMOVE: Defines the size and position of the titles in the parallax sections -- not needed */
+
+section.module.parallax-1 {
+ background-image: url(/img/parallax/future-content.png);
+ 
+}
+ /*SYNOPSIS: this element works perfectly, but none of the other parallax-#'s follow suit for some reason*/
+  
+  /*TESTING: might not need these sections, in the tutorial they simply defines the /img/parallax in the background*/
+/*<!-- defines parallax section 1-->*/
+
+section.module.parallax-2 {
+  background-image: url(/img/parallax/donor-content.png);
+  
+}
+/*<!-- defines parallax section 2-->*/
+
+section.module.parallax-3 {
+  background-image: url(/img/parallax/tradition-content.png);
+  
+}
+/*<!-- defines parallax section 3-->*/
+
+/*REMOVE @media all and (min-width: 600px) {*/
+  section.module h2 {
+    font-size: 42px;
+  }  
+  /*COULD LIKELY REMOVE*/
+
+  section.module p {
+    font-size: 20px;
+  }
+  /*COULD LIKELY REMOVE*/
+
+  section.module.parallax h1 {
+    font-size: 96px;
+  }
+  /*COULD LIKELY REMOVE*/
+
+/* REMOVE}
+@media all and (min-width: 960px) {*/
+  section.module.parallax h1 {
+    font-size: 160px;
+  }
+/*REMOVE}*/
+/*COULD LIKELY REMOVE*/
+
+.timeout-notification{
+ 	display: none; 
+	position: fixed;
+	top: 450px;
+	background: rgba(92, 59, 37, 0.9);
+	color: white;
+	padding: 40px;
+	z-index: 9999;
+	width: 30%;
+	left: 35%;
+	text-align: center;
+	border-radius: 20px;
+
 }
 
 
