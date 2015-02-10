@@ -447,6 +447,12 @@ $('h3.clear-search').on('click', function(){
 
 
 
+  carousel_slide_count[i - 1] = (i.toString());
+
+}
+
+carousel_slide_count.push('1');
+
 //-------------------------------------------------------------------------------------------
 
 // END DONOR SEARCH FUNCTIONALITY
