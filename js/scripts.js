@@ -150,7 +150,7 @@ function populateDonorList(){
 
     donor_html = "";
     if(donor.detail_image){
-      donor_html += "<li class='donor'>" +
+      donor_html += "<li class='donor donor-with-detail'>" +
                         "<a href='#' slider-nav='" + donor.id +"'>" +
                             "<span>" + 
                                donor.title + 
@@ -211,8 +211,8 @@ function createDetailPages(){
 
     $("#slidr-level-1").append(
         "<div data-slidr='"+donor.id+"' class='slide-"+donor.id+"'>" + 
-          "<div class=\"page-wrapper\">" +
-            "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".loop.png' />" + 
+          "<div class=\"page-wrapper donor-detail\">" +
+            "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />" + 
           "</div>" + 
         "</div>"
       );
