@@ -363,6 +363,8 @@ $('h3.clear-search').on('click', function(){
   $('h3.prompt-text').slideDown();
 });
 
+var carousel_slide_count = ['1'];
+
 for(var i = 1; i < 5; i++){
   $('#slidr-carousel').append(
         "<div data-slidr='" + i + "' class='carousel-slide-" + i + "'>" + 
@@ -370,7 +372,11 @@ for(var i = 1; i < 5; i++){
         "</div>"
   );
 
+  carousel_slide_count[i - 1] = (i.toString());
+
 }
+
+carousel_slide_count.push('1');
 
 //-------------------------------------------------------------------------------------------
 
@@ -422,6 +428,7 @@ $(document).ready(function(){
     }).start(); 
 
   slidr_carousel.auto(10000); 
+  slidr_carousel.add('h', carousel_slide_count);
 //-------------------------------------------------------------------------------------------
 
 
