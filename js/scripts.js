@@ -337,7 +337,7 @@ function performDonorSearch(){
     values_found = 0;
     // console.log(value);
 
-    $('.donor-list li a span').each(function(){
+    $('.donor-list li span').each(function(){
       test_val = $(this).html();
       console.log(test_val);
       last_name = test_val.split(' ')[1].toUpperCase();
