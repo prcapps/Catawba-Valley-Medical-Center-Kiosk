@@ -447,11 +447,8 @@ $('h3.clear-search').on('click', function(){
 
 
 
-  carousel_slide_count[i - 1] = (i.toString());
 
-}
 
-carousel_slide_count.push('1');
 
 //-------------------------------------------------------------------------------------------
 
@@ -496,6 +493,10 @@ function init_sliders(){
       }).start(); 
 
     slidr_carousel.auto(10000); 
+
+    //   carousel_slide_count[i - 1] = (i.toString());
+
+    // carousel_slide_count.push('1');
 }
 
 // READY PAGE
