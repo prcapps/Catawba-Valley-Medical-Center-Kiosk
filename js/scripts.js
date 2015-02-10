@@ -1,6 +1,7 @@
 var donor_list;
 var donor_categories = {};
 var looping_slides = [];
+var looping_slides_count = [];
 
 
 var index_pages = [];
@@ -173,7 +174,7 @@ function populateDonorCategories(){
     $("#donor-categories").append(
         "<li>" +
           "<a href='#' slider-nav='" + cat.id +"'>" +
-              "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
+              "<div class='image-container'><img src='http://photos.osmek.com/" + cat.list_image +".png' /></div>" + 
               "<span>" + 
                cat.title + 
               "</span></a></li>"
@@ -190,8 +191,19 @@ function createLoopingSlides(){
               "<a href='#'><img src='http://photos.osmek.com/" + slide.looping_slide_image +".loop.png' /></a>" +  
             "</div>"
       );
-  }
+
+      looping_slides_count.push(index);
+    }
+    
+
+  // delete looping_slides_count[0];
+
+  looping_slides_count.push("0");
+
+  console.log(looping_slides_count);
 }
+
+
 
 function createDetailPages(){
   for(index in donor_list){
@@ -211,11 +223,11 @@ function createDetailPages(){
 
     cat_html =  "<div data-slidr='"+cat.id+"' class='slide-"+cat.id+"'>" + 
                   "<div class=\"page-wrapper\">" +
-                    "<div class=\"page-left\">" + 
+                    "<div class=\"page-left\"><div>" + 
                       "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
                       "<h1>" + cat.title + "</h1>" + 
                         cat.postbody +
-                      "</div><div class='page-right'>" +
+                      "</div></div><div class='page-right'>" +
                       "<ul class='two-per-row large-links'>";
 
     for(donor_index in cat.donors){
@@ -301,7 +313,7 @@ function createSubPagesPages(){
           $(list).append(
                           "<li>" +
                             "<a href='#' slider-nav='" + active_sub_page.id +"'>" +
-                              "<img src='http://photos.osmek.com/" + active_sub_page.list_image +".l.png' />" + 
+                              "<div class='image-container'><img src='http://photos.osmek.com/" + active_sub_page.list_image +".l.png' /></div>" + 
                                 "<span>" + 
                                  active_sub_page.title + 
                                 "</span>" +
@@ -493,7 +505,7 @@ function init_sliders(){
       }).start(); 
 
     slidr_carousel.auto(10000); 
-
+    slidr_carousel.add('h', looping_slides_count);
     //   carousel_slide_count[i - 1] = (i.toString());
 
     // carousel_slide_count.push('1');
