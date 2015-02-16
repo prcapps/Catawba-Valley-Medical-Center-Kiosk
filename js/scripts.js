@@ -630,6 +630,135 @@ $(document).ready(function(){
   });
 
 
+  $('.wrapper').scroll(function(){
+    console.log('parallax', $('.parallax-1').position() );
+    current_pos = $(".parallax-1").position().top;
+    current_pos *= -1;
+    max_height = 580;
+
+    /* PRC Fade Breakpoint */
+    opacity_1_start = 200;
+    opacity_1_end = 400;
+    opacity_2_fadein_start = 800;
+    opacity_2_fadein_end = 1000;
+    opacity_2_fadeout_start = 1200;
+    opacity_2_fadeout_end = 1500;
+    opacity_3_start = 1800;
+    opacity_3_end = 2200;
+
+
+
+    if(current_pos < opacity_1_start){
+      console.log("Opacity 1 Pre", current_pos, opacity_1_start);
+      opacity_1 = 1;
+    }
+    else if(current_pos > opacity_1_end){
+      console.log("Opacity 1 Post", current_pos, opacity_1_end);
+      opacity_1 = 0;
+    }
+    else{
+      opacity_1_window = opacity_1_end - opacity_1_start;
+      opacity_1_pos = current_pos - opacity_1_start;
+
+      opacity_1_progress = opacity_1_pos / opacity_1_window;
+      opacity_1 = 1.0 - opacity_1_progress;
+      console.log("Opacity 1", current_pos, opacity_1_window, opacity_1_pos, opacity_1_progress, opacity_1);
+    }
+    // console.log("Opacity 1", current_pos, opacity_1_window, opacity_1_pos, opacity_1_progress, opacity_1);
+
+
+
+
+    if(current_pos < opacity_2_fadein_start){
+      console.log("Opacity 2 Fadein Pre Start", current_pos, opacity_2_fadein_start);
+      opacity_2 = 0;
+    }
+    else if(current_pos > opacity_2_fadein_end){
+      console.log("Opacity 2 Fadein Post Window", current_pos, opacity_2_fadein_end);
+      opacity_2 = 1;
+    }
+    else{
+      opacity_2_window = opacity_2_fadein_end - opacity_2_fadein_start;
+      opacity_2_pos = current_pos - opacity_2_fadein_start;
+
+      opacity_2_progress = opacity_2_pos / opacity_2_window;
+      opacity_2 = opacity_2_progress;
+      console.log("Opacity 2 Fadein", current_pos, opacity_2_window, opacity_2_pos, opacity_2_progress, opacity_2);
+    }
+
+
+    if(current_pos < opacity_2_fadeout_start){
+      console.log("Opacity 2 Fadeout Pre Start", current_pos, opacity_2_fadeout_start);
+      // opacity_2 = 0;
+    }
+    else if(current_pos > opacity_2_fadeout_end){
+      console.log("Opacity 2 FadeOut Post Window", current_pos, opacity_2_fadeout_end);
+      opacity_2 = 0;
+    }
+    else{
+      opacity_2_window = opacity_2_fadeout_end - opacity_2_fadeout_start;
+      opacity_2_pos = current_pos - opacity_2_fadeout_start;
+
+      opacity_2_progress = opacity_2_pos / opacity_2_window;
+      opacity_2 = 1.0 - opacity_2_progress;
+      console.log("Opacity 2 FadeOut", current_pos, opacity_2_window, opacity_2_pos, opacity_2_progress, opacity_2);
+    }
+
+
+    /* Part Three */
+    if(current_pos < opacity_3_start){
+      console.log("Opacity 3 Pre", current_pos, opacity_3_start);
+      opacity_3 = 0;
+    }
+    else if(current_pos > opacity_3_end){
+      console.log("Opacity 3 Post", current_pos, opacity_3_end);
+      opacity_3 = 1;
+    }
+    else{
+      opacity_3_window = opacity_3_end - opacity_3_start;
+      opacity_3_pos = current_pos - opacity_3_start;
+
+      opacity_3_progress = opacity_3_pos / opacity_3_window;
+      opacity_3 = opacity_3_progress;
+      console.log("Opacity 3", current_pos, opacity_3_window, opacity_3_pos, opacity_3_progress, opacity_3);
+    }
+
+
+
+    $(".parallax-1").css('opacity', opacity_1);
+    $(".parallax-2").css('opacity', opacity_2);
+    $(".parallax-3").css('opacity', opacity_3);
+
+
+    // opacity_1 = 1 - (current_pos / max_height);
+
+    // opacity_2_pos = current_pos - 600;
+
+    // if(opacity_2_pos < 0){
+    //   opacity_2_pos = 0;
+    // }
+
+    // opacity_2 = (opacity_2_pos / (1080/2) );
+
+    // if(opacity_2 > 1){
+    //   opacity_2 = 1;
+    // }
+
+    // console.log('Opacity 2 Pos', opacity_2_pos);
+
+    // if(opacity_2_pos > (1080/2 ) ){
+
+    //   opacity_2 = 1 - (opacity_2_pos / (1080) );
+    // }
+
+
+
+
+    // console.log(current_pos, max_height, opacity_1, opacity_2);
+
+  });
+
+
 });
 
 
