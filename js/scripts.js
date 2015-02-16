@@ -400,7 +400,7 @@ function performDonorSearch(){
 
     $('.donor-list li span').each(function(){
       donor_key =  $(this).parents('li').attr('data-search-name');
-      console.log("Donor Value", donor_key);
+      // console.log("Donor Value", donor_key);
 
       if(typeof donor_key == 'undefined' || donor_key.indexOf(value) != 0){
         $(this).parents('li').addClass('donor-not-found'); 
