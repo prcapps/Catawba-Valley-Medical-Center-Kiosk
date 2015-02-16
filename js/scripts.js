@@ -1,3 +1,14 @@
+// YOUTUBE API STUFF
+
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var player;
+
+// END YOUTUBE API STUFF
+
 var donor_list;
 var donor_categories = {};
 var looping_slides = [];
@@ -149,6 +160,8 @@ function populateDonorList(){
   for(index in donor_list){
     donor = donor_list[index];
 
+    donor_html = "";
+
     donor_search_key = donor.search_name.toUpperCase();
 
     if(donor.categories.length == 0){
@@ -165,14 +178,13 @@ function populateDonorList(){
 
       real_cat = donor_categories[cat_key];
 
-      donor_text = donor.title + " - " + real_cat.title;
+      donor_text = "<span class='donor-display-name'>" + donor.title + "</span><span class='donor-display-cat'>" + real_cat.title + "<span>" ;
 
       donor_html = "";
       donor_html += "<li class='donor donor-with-detail' data-search-name='" + donor_search_key + "'>" +
                         "<a href='#' slider-nav='" + real_cat.id +"'>" +
-                            "<span>" + 
                                donor_text + 
-                            "</span></a></li>";
+                            "</a></li>";
     
 
       $(".donor-list").append(donor_html);
@@ -227,11 +239,21 @@ function createDetailPages(){
 
     donor_detail_html += 
         "<div data-slidr='"+donor.id+"' class='slide-"+donor.id+"'>" + 
-          "<div class=\"page-wrapper donor-detail\">" +
-            "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />";
+          "<div class=\"page-wrapper donor-detail\">";
 
     if(donor.video){
-      donor_detail_html += "<a slider-nav='"+donor.id+"-video' class='video-play-button'>PLAY VIDEO</a>";
+      donor_detail_html += 
+      "<a href='#' id='video-" + donor.id + "'class='video-play-button'>" +
+      "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />" +
+      "</a>";
+    }else{
+      donor_detail_html += 
+      "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />";
+    }          
+            
+
+    if(donor.video){
+      // donor_detail_html += "<a class='video-play-button'>PLAY VIDEO</a>";
     }
 
     donor_detail_html +=
@@ -241,13 +263,17 @@ function createDetailPages(){
 
     $("#slidr-level-1").append(donor_detail_html);
 
+    current_donor = ".slide-" + donor.id;
+
     if(donor.video){
       donor_video_html = "";
-      donor_video_html += "<div data-slidr='"+donor.id+"-video' class='video-slide slide-"+donor.id+"-video'>"; 
-      donor_video_html +=   '<iframe width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo" frameborder="0" allowfullscreen></iframe>';
-      donor_video_html += "</div>";
+      donor_video_html += "<div class='video-container slide-"+donor.id+"-video'>"; 
+      donor_video_html +=   "<a href='#' class='close-video'>x</a>";
+      donor_video_html += "<div id='video-" + donor.id + "'>"; 
+      // donor_video_html +=   '<iframe width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo" frameborder="0" allowfullscreen></iframe>';
+      donor_video_html += "</div></div>";     
 
-      $("#slidr-level-1").append(donor_video_html);
+      $(current_donor).append(donor_video_html);
     }
     
 
@@ -441,10 +467,11 @@ deleteEvent = function(){
         jsKeyboard.currentElementCursorPosition = 0;
 
         $('h3.clear-search').slideUp();
-        $('h3.no-results').fadeOut(); 
         $('h3.no-results-keyboard').slideUp();
         $('.donor-list').slideUp();
-        $('h3.prompt-text').fadeIn();                 
+        $('h3.no-results').fadeOut('slow', function(){
+          $('h3.prompt-text').fadeIn();
+        });                        
     }
     // console.log("cursor position: " + jsKeyboard.currentElementCursorPosition);
     // console.log('delete');     
@@ -472,10 +499,12 @@ $('.no-results a, .no-results-keyboard a').on('click', function(e){
   $('.donor-list li').fadeIn('fast');
   $('#donor-search-input').val('');
   
-  $('h3.no-results').fadeOut(); 
+  $('h3.no-results').fadeOut('slow', function(){
+    $('h3.prompt-text').fadeIn();
+  }); 
   $('h3.no-results-keyboard').slideUp();   
   $('h3.clear-search').slideUp();   
-  
+
   $('#donor-search-input').focus(); 
   e.preventDefault();    
 });
@@ -486,7 +515,9 @@ $('h3.clear-search').on('click', function(){
   $('#donor-search-input').val('');
   $(this).slideUp();
   $('ul.donor-list').slideUp();
-  $('h3.prompt-text').slideDown();
+  $('h3.no-results').fadeOut('slow', function(){
+    $('h3.prompt-text').fadeIn();
+  });
 });
 
 
@@ -847,5 +878,31 @@ $('#slidr-carousel a').on('click', function(){
 
   home_page = false;
 });
+
+// VIDEO PLAY BUTTON STUFF
+$(document).on('click', '.video-play-button', function(e){
+  $('.video-container').fadeIn();
+
+  video_id = $(this).attr('id');
+
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player(video_id, {
+        height: '390',
+        width: '640',
+        videoId: 'M7lc1UVf-VE',
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+  e.preventDefault();
+});
+
+$(document).on('click', '.close-video', function(e){
+  $('.video-container').fadeOut();
+  e.preventDefault();
+})
 
 

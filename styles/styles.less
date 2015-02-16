@@ -289,13 +289,21 @@ table {
 	transition: .2s all;
 	overflow:hidden;
 
+
+
+
 	a{
 		min-width: 300px;
 		text-decoration: underline;
 		span{
-			
+			display:block;
+			clear:both;
 			
 		}
+		.donor-display-cat{
+			font-size: .6em;
+			margin-top: 5px;
+		}		
 	}
 
 	span{
@@ -305,6 +313,7 @@ table {
 	&.donor-not-found{
 		width: 0px;
 		opacity: 0;
+		padding:0px;
 	}
 }
 
@@ -317,6 +326,39 @@ h3.no-results, h3.no-results-keyboard{
 	display:none;
 	clear:both;
 	color: @brown;
+}
+
+.video-play-button{
+/*	display: inline-block;
+	margin-top: 500px;
+	padding: 100px;
+	float:left;
+	max-width: 100px;
+	border-radius: 500px;*/
+}
+
+.video-container{
+	display:none;
+	position:absolute;
+	top: 0px;
+	width: 100%;
+	text-align: center;
+	iframe{
+		width: 50%;
+		/*margin-top: 300px;*/
+	}
+}
+
+.close-video{
+	position: relative;
+	display: block;
+	clear: both;
+	width: 100px;
+	padding: 25px 0px;
+	background: white;
+	border-radius: 120px;
+	margin: 100px auto 20px auto;
+	font-size: 50px;	
 }
 
 /*NAVIGATION*/
