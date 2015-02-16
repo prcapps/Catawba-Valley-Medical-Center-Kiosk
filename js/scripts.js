@@ -243,12 +243,12 @@ function createDetailPages(){
 
     if(donor.video){
       donor_detail_html += 
-      "<a href='#' id='video-" + donor.id + "'class='video-play-button'>" +
-      "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />" +
-      "</a>";
+        "<a href='#' id='video-" + donor.id + "' class='video-play-button' data-video-id='" + donor.video.id + "' >" +
+          "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />" +
+        "</a>";
     }else{
       donor_detail_html += 
-      "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />";
+        "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />";
     }          
             
 
@@ -263,17 +263,20 @@ function createDetailPages(){
 
     $("#slidr-level-1").append(donor_detail_html);
 
-    current_donor = ".slide-" + donor.id;
 
-    if(donor.video){
-      donor_video_html = "";
-      donor_video_html += "<div class='video-container slide-"+donor.id+"-video'>"; 
-      donor_video_html +=   "<a href='#' class='close-video'>x</a>";
-      donor_video_html +=   '<iframe id="player" width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
-      donor_video_html += "</div>";     
+    // PRC Disabled this
 
-      $(current_donor).append(donor_video_html);
-    }
+    // current_donor = ".slide-" + donor.id;
+
+    // if(donor.video){
+    //   donor_video_html = "";
+    //   donor_video_html += "<div class='video-container slide-"+donor.id+"-video'>"; 
+    //   donor_video_html +=   "<a href='#' class='close-video'>x</a>";
+    //   // donor_video_html +=   '<iframe id="player" width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
+    //   donor_video_html += "</div>";     
+
+    //   $(current_donor).append(donor_video_html);
+    // }
     
 
   }
@@ -577,6 +580,8 @@ function init_sliders(){
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
+    height: '390',
+    width: '640',
     events: {
       // 'onReady': onPlayerReady,
       // 'onStateChange': onPlayerStateChange
@@ -584,15 +589,7 @@ function onYouTubeIframeAPIReady() {
   });
 
   // 
-
-  console.log("hi!");
 }
-
-
-player.playVideo();
-
-
-
 
 // READY PAGE
 $(document).ready(function(){
@@ -903,11 +900,13 @@ $('#slidr-carousel a').on('click', function(){
 
 // VIDEO PLAY BUTTON STUFF
 $(document).on('click', '.video-play-button', function(e){
-  $('.video-container').fadeIn(function(){
+  video_id = $(this).attr('data-video-id');
+  if(video_id){
+    player.loadVideoById(video_id);
+    player.playVideo();
+  }
+  $('.video-container').fadeIn();
 
-  });
-
-  video_id = $(this).attr('id');
   e.preventDefault();
 });
 
