@@ -269,9 +269,8 @@ function createDetailPages(){
       donor_video_html = "";
       donor_video_html += "<div class='video-container slide-"+donor.id+"-video'>"; 
       donor_video_html +=   "<a href='#' class='close-video'>x</a>";
-      donor_video_html += "<div id='video-" + donor.id + "'>"; 
-      // donor_video_html +=   '<iframe width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo" frameborder="0" allowfullscreen></iframe>';
-      donor_video_html += "</div></div>";     
+      donor_video_html +=   '<iframe id="player" width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
+      donor_video_html += "</div>";     
 
       $(current_donor).append(donor_video_html);
     }
@@ -574,8 +573,31 @@ function init_sliders(){
     // carousel_slide_count.push('1');
 }
 
+
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    events: {
+      // 'onReady': onPlayerReady,
+      // 'onStateChange': onPlayerStateChange
+    }
+  });
+
+  // 
+
+  console.log("hi!");
+}
+
+
+player.playVideo();
+
+
+
+
 // READY PAGE
 $(document).ready(function(){
+
+
 //-------------------------------------------------------------------------------------------
 
 // SLIDER
@@ -881,22 +903,11 @@ $('#slidr-carousel a').on('click', function(){
 
 // VIDEO PLAY BUTTON STUFF
 $(document).on('click', '.video-play-button', function(e){
-  $('.video-container').fadeIn();
+  $('.video-container').fadeIn(function(){
+
+  });
 
   video_id = $(this).attr('id');
-
-  function onYouTubeIframeAPIReady() {
-      player = new YT.Player(video_id, {
-        height: '390',
-        width: '640',
-        videoId: 'M7lc1UVf-VE',
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
   e.preventDefault();
 });
 
