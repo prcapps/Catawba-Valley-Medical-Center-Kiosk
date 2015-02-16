@@ -130,6 +130,10 @@ table {
 	/*opacity: 0;*/
 }
 
+/*PAGE SPECIFIC STYLES*/
+
+/*END PAGE SPECIFIC STYLES*/
+
 .page-wrapper{
 	background-image: url('../img/page-background.jpg');
 	width: 100%;
@@ -153,6 +157,17 @@ table {
 		>div{
 			padding: 0px 10%;
 			overflow:hidden;
+		}
+	}
+	&.tradition .page-right,
+	&.future .page-right{
+		margin-top: 300px;
+	}
+	&.donors{
+		#donor-categories{
+			li{
+				padding-top: 55px;
+			}
 		}
 	}
 }
@@ -199,6 +214,9 @@ table {
 	}
 }
 
+#donor-search-input{
+	font-family: "leawood-book-bt";
+}
 
 /*DONORS PAGE*/
 .keyboard-container{
@@ -210,6 +228,7 @@ table {
 	padding: 20px 0px;
 	border-top: 1px solid #ddd;
 	background: #f2f2f2;
+
 	input{
 		min-width: 65%;
 		min-height: 50px;
@@ -261,7 +280,8 @@ table {
 }
 
 .donor-with-detail span{
-	border-bottom: 5px solid;
+	/*border-bottom: 5px solid;*/
+	text-decoration: underline;
 	width: auto !important;
 }
 
@@ -322,9 +342,9 @@ h3.no-results, h3.no-results-keyboard{
 		&:first-child{
 			width: 13%;
 			a{
-				padding: 16px;
+				/*padding: 16px;*/
 				img{
-					max-width: 100px;
+					max-width: 152px;
 				}				
 			}
 		}
@@ -344,14 +364,14 @@ h3.no-results, h3.no-results-keyboard{
 		}	
 		a{
 			display:block;
-			padding: 40px 0px 40px 0px;
+			/*padding: 40px 0px 40px 0px;*/
 			/*background: #eee;*/
 			text-align: center;
 			min-height: 80px;
-			background-image: url('/img/magic-dots.png');
+			/*background-image: url('/img/magic-dots.png');*/
 
 			img{
-				max-width: 250px;
+				/*max-width: 250px;*/
 			}
 		}
 	}
