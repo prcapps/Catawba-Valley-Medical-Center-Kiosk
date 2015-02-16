@@ -580,7 +580,7 @@ $(document).ready(function(){
   // PARALLAX
 
   $('.parallax a').on('click', function(e){
-    $('.parallax').fadeOut(function(){
+    $('.parallax-wrapper').fadeOut(function(){
       $('.slider-nav-wrapper').removeClass('prc-invisible').animate({ opacity: 1 }, function(){
         $('.landing-page-navigation').fadeIn();
       });
@@ -589,17 +589,22 @@ $(document).ready(function(){
   });
 
   $('.parallax-button').on('click', function(e){
+   
+
     $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
       $(this).addClass('prc-invisible');
       $('.landing-page-navigation').fadeOut();
+    
     });
-    $('.parallax').fadeIn();
+    $('.parallax-wrapper').fadeIn();
+    $('.parallax-3').animate({ opacity: 1 });
     e.preventDefault();
   });
 
   $('#slidr-carousel a').click(function(){
     $('#slidr-carousel').fadeOut(function(){
-      $('.parallax').fadeIn();
+      $('.parallax-wrapper').fadeIn();
+      $('.parallax-wrapper').scrollTop(3000);
       slidr_carousel.stop();      
     });
 
@@ -607,7 +612,7 @@ $(document).ready(function(){
 
  
   // $('.parallax a').on('click', function(e){
-  //   $('.parallax').fadeOut(function(){
+  //   $('.parallax-wrapper').fadeOut(function(){
   //     $('.slider-level-1, .landing-page-navigation').animate({ opacity: 1 }, function(){
 
   //     });
@@ -620,7 +625,7 @@ $(document).ready(function(){
   //   $('.slider-level-1, .landing-page-navigation').animate({
   //     opacity: 0
   //   });
-  //   $('.parallax').fadeIn();
+  //   $('.parallax-wrapper').fadeIn();
   //   e.preventDefault();
   // });
   
@@ -639,7 +644,7 @@ $(document).ready(function(){
   });
 
 
-  $('.wrapper').scroll(function(){
+  $('.parallax-wrapper').scroll(function(){
     console.log('parallax', $('.parallax-1').position() );
     current_pos = $(".parallax-1").position().top;
     current_pos *= -1;
@@ -785,7 +790,7 @@ function short_timeout_trigger(){
     $(this).addClass('prc-invisible');
     $('.landing-page-navigation').fadeOut();
   });  
-  $('.parallax').fadeOut();
+  $('.parallax-wrapper').fadeOut();
   $('#slidr-carousel').fadeIn();
   slidr_carousel.auto(10000);  
   $('.timeout-notification').fadeOut();
