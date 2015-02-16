@@ -19,7 +19,7 @@ function prc_kiosk_process_donor_categories(donor_category_array){
     item = donor_category_array[index];
     item.donors = [];
 
-    section_key = item.title.toLowerCase().replace(/\ /g, '_');
+    section_key = item.url_title.toLowerCase().replace(/\ /g, '_');
 
 
     donor_categories[section_key] = item;
@@ -52,7 +52,8 @@ function prc_kiosk_process_donors(response){
     for(cat_index in donor.categories){
       cat = donor.categories[cat_index];
 
-      cat_key = cat.title.toLowerCase().replace(/\ /g, '_');
+      cat_key = cat.url_title.toLowerCase().replace(/\ /g, '_');
+      // cat_key = cat_key.replace("_", "");
 
       if(typeof donor_categories[cat_key] != 'undefined'){
         donor_categories[cat_key].donors.push(donor);
@@ -160,7 +161,7 @@ function populateDonorList(){
     for(cat_index in donor.categories){
       cat = donor.categories[cat_index];
 
-      cat_key = cat.title.toLowerCase().replace(/\ /g, '_');
+      cat_key = cat.url_title.toLowerCase().replace(/\ /g, '_');
 
       real_cat = donor_categories[cat_key];
 
