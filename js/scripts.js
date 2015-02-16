@@ -148,27 +148,31 @@ function populateDonorList(){
   for(index in donor_list){
     donor = donor_list[index];
 
+    donor_search_key = donor.search_name.toUpperCase();
+
+    if(donor.categories.length == 0){
+      donor_html += "<li class='donor' data-search-name='" + donor_search_key + "' >" +
+                      "<span>" + 
+                         donor.title + 
+                      "</span></li>";
+    }
+
     for(cat_index in donor.categories){
       cat = donor.categories[cat_index];
 
       cat_key = cat.title.toLowerCase().replace(/\ /g, '_');
 
-      donor_text = donor.title + " - " + cat.title;
-      
+      real_cat = donor_categories[cat_key];
+
+      donor_text = donor.title + " - " + real_cat.title;
+
       donor_html = "";
-      if(donor.detail_image){
-        donor_html += "<li class='donor donor-with-detail'>" +
-                          "<a href='#' slider-nav='" + donor.id +"'>" +
-                              "<span>" + 
-                                 donor_text + 
-                              "</span></a></li>";
-      }
-      else{
-        donor_html += "<li class='donor'>" +
-                              "<span>" + 
-                                 donor_text + 
-                              "</span></li>";
-      }
+      donor_html += "<li class='donor donor-with-detail' data-search-name='" + donor_search_key + "'>" +
+                        "<a href='#' slider-nav='" + real_cat.id +"'>" +
+                            "<span>" + 
+                               donor_text + 
+                            "</span></a></li>";
+    
 
       $(".donor-list").append(donor_html);
 
@@ -218,13 +222,34 @@ function createDetailPages(){
   for(index in donor_list){
     donor = donor_list[index];
 
-    $("#slidr-level-1").append(
+    donor_detail_html = "";
+
+    donor_detail_html += 
         "<div data-slidr='"+donor.id+"' class='slide-"+donor.id+"'>" + 
           "<div class=\"page-wrapper donor-detail\">" +
-            "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />" + 
+            "<img class='detail-image' src='http://photos.osmek.com/" + donor.detail_image +".o.png' />";
+
+    if(donor.video){
+      donor_detail_html += "<a slider-nav='"+donor.id+"-video' class='video-play-button'>PLAY VIDEO</a>";
+    }
+
+    donor_detail_html +=
           "</div>" + 
-        "</div>"
-      );
+        "</div>";
+
+
+    $("#slidr-level-1").append(donor_detail_html);
+
+    if(donor.video){
+      donor_video_html = "";
+      donor_video_html += "<div data-slidr='"+donor.id+"-video' class='video-slide slide-"+donor.id+"-video'>"; 
+      donor_video_html +=   '<iframe width="1020" height="630" src="https://www.youtube.com/embed/y_tklwbFsRo" frameborder="0" allowfullscreen></iframe>';
+      donor_video_html += "</div>";
+
+      $("#slidr-level-1").append(donor_video_html);
+    }
+    
+
   }
 
   for(cat_index in donor_categories){
@@ -344,22 +369,19 @@ function performDonorSearch(){
   value = value.toUpperCase();
     
     values_found = 0;
-    // console.log(value);
+    console.log("Search Value", value);
 
     $('.donor-list li span').each(function(){
-      test_val = $(this).html();
-      console.log(test_val);
-      last_name = test_val.split(' ')[1].toUpperCase();
+      donor_key =  $(this).parents('li').attr('data-search-name');
+      console.log("Donor Value", donor_key);
 
-      if(last_name.indexOf(value) == -1){
+      if(typeof donor_key == 'undefined' || donor_key.indexOf(value) != 0){
         $(this).parents('li').addClass('donor-not-found'); 
       }
       else{
         $(this).parents('li').removeClass('donor-not-found');
-        values_found = values_found + 1;
-      }
-      console.log(last_name);
-      // console.log(test_val);      
+        values_found++; // Patrick switched this to ++
+      }   
     });
 
 
