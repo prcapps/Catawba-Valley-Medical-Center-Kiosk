@@ -148,22 +148,31 @@ function populateDonorList(){
   for(index in donor_list){
     donor = donor_list[index];
 
-    donor_html = "";
-    if(donor.detail_image){
-      donor_html += "<li class='donor donor-with-detail'>" +
-                        "<a href='#' slider-nav='" + donor.id +"'>" +
-                            "<span>" + 
-                               donor.title + 
-                            "</span></a></li>";
-    }
-    else{
-      donor_html += "<li class='donor'>" +
-                            "<span>" + 
-                               donor.title + 
-                            "</span></li>";
-    }
+    for(cat_index in donor.categories){
+      cat = donor.categories[cat_index];
 
-    $(".donor-list").append(donor_html);
+      cat_key = cat.title.toLowerCase().replace(/\ /g, '_');
+
+      donor_text = donor.title + " - " + cat.title;
+      
+      donor_html = "";
+      if(donor.detail_image){
+        donor_html += "<li class='donor donor-with-detail'>" +
+                          "<a href='#' slider-nav='" + donor.id +"'>" +
+                              "<span>" + 
+                                 donor_text + 
+                              "</span></a></li>";
+      }
+      else{
+        donor_html += "<li class='donor'>" +
+                              "<span>" + 
+                                 donor_text + 
+                              "</span></li>";
+      }
+
+      $(".donor-list").append(donor_html);
+
+    }
   }
 }
 
