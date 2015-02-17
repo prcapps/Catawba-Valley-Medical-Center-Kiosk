@@ -22,7 +22,7 @@ var index_page_to_id = {};
 var timeout;
 var short_timeout;
 var restartTimer;
-var home_page = false;
+var home_page = true;
 
 
 function prc_kiosk_process_donor_categories(donor_category_array){
@@ -290,7 +290,7 @@ function createDetailPages(){
                       "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
                       "<h1>" + cat.title + "</h1>" + 
                         cat.postbody +
-                      "</div></div><div class='page-right'>" +
+                      "</div></div><div class='page-right'><span class='page-up'>Page Up</span>" +
                       "<ul class='two-per-row large-links'>";
 
     for(donor_index in cat.donors){
@@ -308,7 +308,7 @@ function createDetailPages(){
       
     }
 
-    cat_html += "</ul></div></div></div>";
+    cat_html += "</ul><span class='page-down'>Page down</span></div></div></div>";
 
     $("#slidr-level-1").append(cat_html);
   }
@@ -852,13 +852,14 @@ $(document).ready(function(){
 
 /* Timeout Stuff */
 function timeout_trigger(){
-  $('.timeout-notification').fadeIn(); 
-  clearTimeout(timeout);
-  short_timeout = setTimeout('short_timeout_trigger()', 5000);
+  if(!home_page){
+    $('.timeout-notification').fadeIn(); 
+    clearTimeout(timeout);
+    short_timeout = setTimeout('short_timeout_trigger()', 5000);    
+  }
 }
 
 function short_timeout_trigger(){
-
   $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
     $(this).addClass('prc-invisible');
     $('.landing-page-navigation').fadeOut();
@@ -873,8 +874,6 @@ function short_timeout_trigger(){
   restartTimer();
   
   $(document).unbind("click keydown keyup mousemove", restartTimer); 
-
-  
 }
 
 restartTimer = function(){
@@ -883,18 +882,19 @@ restartTimer = function(){
   $('.timeout-notification').fadeOut();
 
   if(home_page == false){
-    timeout = setTimeout('timeout_trigger()', 60000);
+    timeout = setTimeout('timeout_trigger()', 5000);
   }
   
 }
 
+timeout_trigger();
+
 
 /* Looping Slide Stuff */
-$('#slidr-carousel a').on('click', function(){
+$(document).on('click', '#slidr-carousel a', function(){
   $(document).bind("click keydown keyup mousemove", restartTimer);
-  timeout = setTimeout('timeout_trigger()', 60000); 
+  timeout = setTimeout('timeout_trigger()', 5000); 
   console.log(timeout);
-
   home_page = false;
 });
 
@@ -912,7 +912,19 @@ $(document).on('click', '.video-play-button', function(e){
 
 $(document).on('click', '.close-video', function(e){
   $('.video-container').fadeOut();
+  player.pauseVideo();
   e.preventDefault();
 })
+
+// PAGERS
+$(document).on('click', '.page-up', function(){
+  scrolled_list = $(this).siblings('ul');
+  scrolled_list.animate({scrollTop: $(scrolled_list).scrollTop() - 500}, '500', 'swing');
+});
+
+$(document).on('click', '.page-down', function(){
+  scrolled_list = $(this).siblings('ul');
+  scrolled_list.animate({scrollTop: $(scrolled_list).scrollTop() + 500}, '500', 'swing');
+});
 
 
