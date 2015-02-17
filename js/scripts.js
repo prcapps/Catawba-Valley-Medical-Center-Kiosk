@@ -882,7 +882,7 @@ restartTimer = function(){
   $('.timeout-notification').fadeOut();
 
   if(home_page == false){
-    timeout = setTimeout('timeout_trigger()', 5000);
+    timeout = setTimeout('timeout_trigger()', 60000);
   }
   
 }
@@ -893,7 +893,7 @@ timeout_trigger();
 /* Looping Slide Stuff */
 $(document).on('click', '#slidr-carousel a', function(){
   $(document).bind("click keydown keyup mousemove", restartTimer);
-  timeout = setTimeout('timeout_trigger()', 5000); 
+  timeout = setTimeout('timeout_trigger()', 60000); 
   console.log(timeout);
   home_page = false;
 });
