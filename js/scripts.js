@@ -322,7 +322,7 @@ function createDetailPages(){
         console.log("Deatil Sub Page", active_sub_page);
         
          cat_html =  "<div data-slidr='"+active_sub_page.id+"' class='slide-"+active_sub_page.id+"'>" + 
-                        "<div class=\"page-wrapper\">" +
+                        "<div class=\"page-wrapper inner-page\">" +
                           "<img class='detail-image' src='http://photos.osmek.com/" + active_sub_page.detail_image +".loop.png' />" + 
                         "</div>" + 
                       "</div>";
@@ -674,7 +674,7 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $('#slidr-carousel a').click(function(){
+  $('#slidr-carousel a, #slidr-carousel .touch-icon').click(function(){
     $('#slidr-carousel').fadeOut(function(){
       $('.parallax-wrapper').fadeIn();
       $('.parallax-wrapper').scrollTop(3000);
@@ -882,17 +882,17 @@ restartTimer = function(){
   $('.timeout-notification').fadeOut();
 
   if(home_page == false){
+    // THE LONG ONE - 60 SEC
     timeout = setTimeout('timeout_trigger()', 60000);
   }
   
 }
-
-timeout_trigger();
-
+  
 
 /* Looping Slide Stuff */
-$(document).on('click', '#slidr-carousel a', function(){
+$(document).on('click', '#slidr-carousel a, #slidr-carousel .touch-icon', function(){
   $(document).bind("click keydown keyup mousemove", restartTimer);
+  // THE LONG ONE - 60 SEC
   timeout = setTimeout('timeout_trigger()', 60000); 
   console.log(timeout);
   home_page = false;
