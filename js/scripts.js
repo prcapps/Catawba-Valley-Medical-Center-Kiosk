@@ -167,8 +167,11 @@ function prc_kiosk_process_pages(response){
 
 // SETUP DONOR LIST AT THE BEGINNING
 function populateDonorList(){
-  for(index in donor_list){
-    donor = donor_list[index];
+  sorted_full_donors = getSortedArrayByKey(donor_list, "search_name", true);
+
+
+  for(index in sorted_full_donors){
+    donor = sorted_full_donors[index];
 
     donor_html = "";
 
