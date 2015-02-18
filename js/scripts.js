@@ -928,12 +928,9 @@ $(document).on('click', '.page-down', function(){
   scrolled_list.animate({scrollTop: $(scrolled_list).scrollTop() + 500}, '500', 'swing');
 });
 
-$('.page-right ul').each(function(){
-  if($(this).length < 16){
-    $(this).siblings('span').hide();
-    console.log($(this).length);
-  }
-});
+
+
+
 
 
 
