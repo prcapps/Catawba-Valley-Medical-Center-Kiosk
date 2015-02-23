@@ -46,6 +46,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: "leawood-book-bt", Serif;
+	margin-left:-30px !important;
 }
 ol, ul {
 	list-style: none;
@@ -72,7 +73,9 @@ table {
 	max-width: 100%;
 	/*height: 1080px;*/
 	overflow:scroll;
+	overflow-x: hidden;
 	position:relative;
+	margin-right: -30px;
 }
 
 
@@ -175,7 +178,7 @@ table {
 		width: 65%;
 		ul{
 			max-height: 750px;
-			overflow:scroll;			
+						
 		}
 
 		/*padding-top: 350px;*/
@@ -202,15 +205,23 @@ table {
 			}
 		}
 	}
+
 	&.donors, 
 	&.tradition,
 	&.future{
 		padding-top: 100px;
+
 	}
 	&.inner-page{
 		padding-top: 30px;
 	}
 }
+
+.donor-category-slide{
+	.page-right ul{
+		overflow-y:scroll;	
+	}
+}	
 
 &.donors .page-right{
 	.page-up, .page-down{
