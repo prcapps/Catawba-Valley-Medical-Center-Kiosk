@@ -582,9 +582,9 @@ function init_sliders(){
         overflow: true,
         pause: false,
         theme: '#222',
-        timing: { 'cube': '0.5s ease-in' },
+        timing: { 'cube': '1s ease-in' },
         touch: true,
-        transition: 'linear',
+        transition: 'fade',
       }).start(); 
 
     slidr_carousel.auto(10000); 
