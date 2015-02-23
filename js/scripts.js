@@ -226,7 +226,7 @@ function createLoopingSlides(){
     slide = looping_slides[index];
 
     $('#slidr-carousel').append(
-            "<div data-slidr='" + index + "' class='carousel-slide-" + index + "'>" + 
+            "<div data-slidr='" + index + "' class='carousel-slide carousel-slide-" + index + "'>" + 
               "<a href='#'><img src='http://photos.osmek.com/" + slide.looping_slide_image +".loop.png' /></a>" +  
             "</div>"
       );
