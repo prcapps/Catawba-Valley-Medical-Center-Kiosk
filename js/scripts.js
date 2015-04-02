@@ -696,12 +696,13 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $('#slidr-carousel a, #slidr-carousel .touch-icon').click(function(){
+  $('#slidr-carousel a, #slidr-carousel .touch-icon').click(function(e){
     $('#slidr-carousel').fadeOut(function(){
       $('.parallax-wrapper').fadeIn();
       $('.parallax-wrapper').scrollTop(3000);
       slidr_carousel.stop();      
     });
+    e.preventDefault();
 
   });
 
