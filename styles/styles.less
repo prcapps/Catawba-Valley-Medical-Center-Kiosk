@@ -46,7 +46,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: "leawood-book-bt", Serif;
-	margin-left:-30px !important;
+	/*margin-left:-30px !important;*/
 }
 ol, ul {
 	list-style: none;
@@ -75,7 +75,7 @@ table {
 	overflow:scroll;
 	overflow-x: hidden;
 	position:relative;
-	margin-right: -30px;
+	/*margin-right: -30px;*/
 }
 
 
@@ -240,6 +240,7 @@ table {
 	margin: 10px 0px;
 	display:inline-block;
 	border-radius: 10px;
+	text-decoration: none !important;
 }
 
 .slide-two{
@@ -508,8 +509,9 @@ PARALLAX SLIDER
 .parallax-wrapper{
 	display:none;
 	height: 1080px;
-	overflow:scroll;
+	overflow-y: scroll;
 	position: relative;
+	width: 1920px;
 	z-index: 1000;
 }
 
@@ -594,21 +596,6 @@ section.module.content {
 }
 /*IMPORTANT: includes styles for all simple content containing sections*/
 
-section.module.parallax {
-	position: relative;
-  height: 1080px;
-  /*EDIT was originally 600px; 
-  TESTING this should make the parallax content sections the height of the monitor. */
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  /*in the advance tutorial, this section looks like this: section.module.parallax {
-  padding: 240px 0;
-  background-position: 0 0;
-}*/
-
-}
 /*IMPORTANT: Section that creates the parallax effect*/
 
 section.module.parallax h1 {
@@ -642,6 +629,23 @@ section.module.parallax-3 {
   
 }
 /*<!-- defines parallax section 3-->*/
+
+
+section.module.parallax {
+	position: relative;
+  height: 1080px;
+  /*EDIT was originally 600px; 
+  TESTING this should make the parallax content sections the height of the monitor. */
+  background-position: 50% 50%;
+  
+  background-attachment: fixed;
+  background-size: cover;
+  /*in the advance tutorial, this section looks like this: section.module.parallax {
+  padding: 240px 0;
+  background-position: 0 0;
+}*/
+
+}
 
 /*REMOVE @media all and (min-width: 600px) {*/
   section.module h2 {

@@ -303,7 +303,7 @@ function createDetailPages(){
                       "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
                       "<h1>" + cat.title + "</h1>" + 
                         cat.postbody +
-                      "</div></div><div class='page-right'><a href='#' class='page-up'>Click to page Up</a>" +
+                      "</div></div><div class='page-right'><a href='#' class='page-up'>Click to page up</a>" +
                       "<ul class='two-per-row large-links'>";
 
 
