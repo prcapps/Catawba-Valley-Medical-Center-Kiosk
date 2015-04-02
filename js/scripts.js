@@ -654,7 +654,7 @@ $(document).ready(function(){
     $(this).addClass('nav-down').removeClass('nav-up');
   });
 
-  $('a').mousedown(function(e){
+  $('a').on('click', function(e){
     if($(this).attr('slider-nav')){
       var target_slide = $(this).attr("slider-nav");
       slidr_level_1.slide(target_slide);
