@@ -303,7 +303,7 @@ function createDetailPages(){
                       "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
                       "<h1>" + cat.title + "</h1>" + 
                         cat.postbody +
-                      "</div></div><div class='page-right'><span class='page-up'>Page Up</span>" +
+                      "</div></div><div class='page-right'><a href='#' class='page-up'>Click to page Up</a>" +
                       "<ul class='two-per-row large-links'>";
 
 
@@ -326,7 +326,7 @@ function createDetailPages(){
       
     }
 
-    cat_html += "</ul><span class='page-down'>Page down</span></div></div></div>";
+    cat_html += "</ul><a href='#' class='page-down'>Click to page down</span></div></div></div>";
 
     $("#slidr-level-1").append(cat_html);
   }
