@@ -213,7 +213,7 @@ function populateDonorCategories(){
     $("#donor-categories").append(
         "<li>" +
           "<a href='#' slider-nav='" + cat.id +"'>" +
-              "<div class='image-container'><img src='http://photos.osmek.com/" + cat.list_image +".png' /></div>" + 
+              "<img src='http://photos.osmek.com/" + cat.list_image +".png' />" + 
               "<span>" + 
                cat.title + 
               "</span></a></li>"
@@ -394,7 +394,7 @@ function createSubPagesPages(){
           $(list).append(
                           "<li>" +
                             "<a href='#' slider-nav='" + active_sub_page.id +"'>" +
-                              "<div class='image-container'><img src='http://photos.osmek.com/" + active_sub_page.list_image +".l.png' /></div>" + 
+                              "<img src='http://photos.osmek.com/" + active_sub_page.list_image +".l.png' />" + 
                                 "<span>" + 
                                  active_sub_page.title + 
                                 "</span>" +
