@@ -848,54 +848,54 @@ $(document).ready(function(){
 /* Timeout Stuff */
 
 /* ToDo: Add Reload Page Logic */
-// function reload_timeout_trigger(){
+function reload_timeout_trigger(){
   
-// }
+}
 
-// function timeout_trigger(){
-//   if(!home_page){
-//     $('.timeout-notification').fadeIn(); 
-//     clearTimeout(timeout);
-//     short_timeout = setTimeout('short_timeout_trigger()', 5000);    
-//   }
-// }
+function timeout_trigger(){
+  if(!home_page){
+    $('.timeout-notification').fadeIn(); 
+    clearTimeout(timeout);
+    short_timeout = setTimeout('short_timeout_trigger()', 5000);    
+  }
+}
 
-// function short_timeout_trigger(){
-//   $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
-//     $(this).addClass('prc-invisible');
-//     $('.landing-page-navigation').fadeOut();
-//   });  
-//   $('.parallax-wrapper').fadeOut();
-//   $('#slidr-carousel').fadeIn();
-//   slidr_carousel.auto(10000);  
-//   $('.timeout-notification').fadeOut();
+function short_timeout_trigger(){
+  $('.slider-nav-wrapper').animate({ opacity: 0 }, function(){
+    $(this).addClass('prc-invisible');
+    $('.landing-page-navigation').fadeOut();
+  });  
+  $('.parallax-wrapper').fadeOut();
+  $('#slidr-carousel').fadeIn();
+  slidr_carousel.auto(10000);  
+  $('.timeout-notification').fadeOut();
 
-//   home_page = true;
+  home_page = true;
 
-//   restartTimer();
+  restartTimer();
   
-//   $(document).unbind("click keydown keyup mousemove", restartTimer); 
-// }
+  $(document).unbind("click keydown keyup mousemove", restartTimer); 
+}
 
-// restartTimer = function(){
-//   clearTimeout(timeout);
-//   clearTimeout(short_timeout);
+restartTimer = function(){
+  clearTimeout(timeout);
+  clearTimeout(short_timeout);
 
-//   $('.timeout-notification').fadeOut();
+  $('.timeout-notification').fadeOut();
 
-//   if(home_page == false){
-//     // THE LONG ONE - 60 SEC
-//     timeout = setTimeout('timeout_trigger()', 60000);
-//   }
+  if(home_page == false){
+    // THE LONG ONE - 60 SEC
+    timeout = setTimeout('timeout_trigger()', 180000);
+  }
   
-// }
+}
   
 
 /* Looping Slide Stuff */
 $(document).on('click', '#slidr-carousel a, #slidr-carousel .touch-icon', function(){
   $(document).bind("click keydown keyup mousemove", restartTimer);
   // THE LONG ONE - 60 SEC
-  timeout = setTimeout('timeout_trigger()', 60000); 
+  timeout = setTimeout('timeout_trigger()', 180000); 
   console.log(timeout);
   home_page = false;
 });
